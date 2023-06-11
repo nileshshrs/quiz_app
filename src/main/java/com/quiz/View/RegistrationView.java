@@ -43,7 +43,7 @@ public class RegistrationView extends JFrame {
       // add image icon
       try {
          // Get the URL of the image
-         URL imageUrl = getClass().getResource("/com/school/quiz/assets/graduation hat.png");
+         URL imageUrl = getClass().getResource("/com/assets/graduation hat.png");
 
          // Read the image from the URL
          BufferedImage image = ImageIO.read(imageUrl);

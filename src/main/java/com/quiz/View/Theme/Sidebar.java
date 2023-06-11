@@ -31,7 +31,7 @@ public class Sidebar extends JPanel implements ActionListener {
 
     public Sidebar(int topMargin, int bottomMargin) {
         setLayout(new VerticalFlowLayout(VERTICAL_GAP, topMargin, bottomMargin));
-        addTitle("Dashboard", "/com/school/quiz/assets/graduation hat.png");
+        addTitle("Dashboard", "/com/Assets/graduation hat.png");
         createButtonPanel();
     }
 

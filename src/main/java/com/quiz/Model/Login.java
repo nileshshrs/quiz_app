@@ -2,6 +2,9 @@ package com.quiz.Model;
 
 import java.util.ArrayList;
 
+import com.quiz.View.StudentQuizPage;
+import com.quiz.View.TeacherQuizPage;
+
 
 public class Login {
     private ArrayList<String[]> userData;
@@ -31,7 +34,8 @@ public class Login {
                 // new TeacherQuizPage(username);
             } else if (role.equals("teacher")) {
                 // System.out.println(username);
-                new TeacherQuizPage(username);
+                new StudentQuizPage();
+                // new TeacherQuizPage(username);
             }
         }
     }
