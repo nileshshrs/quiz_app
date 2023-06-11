@@ -1,5 +1,7 @@
 package com.quiz;
 
+import com.quiz.View.LoginView;
+
 /**
  * Hello world!
  *
@@ -7,7 +9,8 @@ package com.quiz;
 public class App 
 {
     public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+    {   
+        new LoginView();
+        
     }
 }
