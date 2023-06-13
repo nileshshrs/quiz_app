@@ -23,7 +23,7 @@ public class TeacherQuizPage extends JFrame {
     private JPanel currentPanel;
 
     // uncomment
-    // private QuizQuestionPanel quizQuestionPanel; // Moved outside the constructor
+    private QuizQuestionPanel quizQuestionPanel; // Moved outside the constructor
     // uncomment
     public TeacherQuizPage(String username) {
         // System.out.println(username);
@@ -56,7 +56,7 @@ public class TeacherQuizPage extends JFrame {
             e.printStackTrace();
         }
         // uncomment
-        // quizQuestionPanel = new QuizQuestionPanel();
+        quizQuestionPanel = new QuizQuestionPanel();
         // Initialize the quizQuestionPanel
         // uncomment
         Sidebar sidebar = new Sidebar();
@@ -83,10 +83,10 @@ public class TeacherQuizPage extends JFrame {
                 // Show new panel
                 if (buttonText.equals("Quiz Questions")) {
                     // uncomment
-                    // contentPanel.add(quizQuestionPanel); // Add the panel back to the parent
-                    // container
-                    // quizQuestionPanel.setVisible(true);
-                    // currentPanel = quizQuestionPanel;
+                    contentPanel.add(quizQuestionPanel); // Add the panel back to the parent
+       
+                    quizQuestionPanel.setVisible(true);
+                    currentPanel = quizQuestionPanel;
                     // uncomment
                 } else if (buttonText.equals("My Profile")) {
                     // uncomment
@@ -106,14 +106,14 @@ public class TeacherQuizPage extends JFrame {
         sidebar.setBounds(40, 40, 200, getHeight() - 200);
         contentPanel.add(sidebar);
         // uncomment
-        // contentPanel.add(quizQuestionPanel);
+        contentPanel.add(quizQuestionPanel);
         // uncomment
         getContentPane().add(contentPanel);
         // uncomment
         // Set quiz panel as the default panel
-        // currentPanel = quizQuestionPanel;
-        // uncomment
+        currentPanel = quizQuestionPanel;
         currentPanel.setVisible(true);
+        // uncomment
 
         setVisible(true);
     }

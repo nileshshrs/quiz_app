@@ -34,8 +34,8 @@ public class Login {
                 // new TeacherQuizPage(username);
             } else if (role.equals("teacher")) {
                 // System.out.println(username);
-                new StudentQuizPage();
-                // new TeacherQuizPage(username);
+                // new StudentQuizPage();
+                new TeacherQuizPage(username);
             }
         }
     }
