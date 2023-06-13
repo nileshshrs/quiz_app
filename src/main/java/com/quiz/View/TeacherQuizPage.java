@@ -22,9 +22,9 @@ public class TeacherQuizPage extends JFrame {
 
     private JPanel currentPanel;
 
-    // uncomment
+    
     private QuizQuestionPanel quizQuestionPanel; // Moved outside the constructor
-    // uncomment
+    
     public TeacherQuizPage(String username) {
         // System.out.println(username);
         setTitle("Quiz Application");
@@ -55,10 +55,10 @@ public class TeacherQuizPage extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // uncomment
+        
         quizQuestionPanel = new QuizQuestionPanel();
         // Initialize the quizQuestionPanel
-        // uncomment
+        
         Sidebar sidebar = new Sidebar();
         sidebar.addButton("My Profile");
         sidebar.addButton("Quiz Questions");
@@ -82,16 +82,16 @@ public class TeacherQuizPage extends JFrame {
 
                 // Show new panel
                 if (buttonText.equals("Quiz Questions")) {
-                    // uncomment
+                    
                     contentPanel.add(quizQuestionPanel); // Add the panel back to the parent
        
                     quizQuestionPanel.setVisible(true);
                     currentPanel = quizQuestionPanel;
-                    // uncomment
+                    
                 } else if (buttonText.equals("My Profile")) {
-                    // uncomment
+                    
                     // Add code for My Profile panel
-                    // uncomment
+                    
                 } else {
                     currentPanel = null;
                     // Add code for other panels
@@ -103,17 +103,17 @@ public class TeacherQuizPage extends JFrame {
             }
         });
 
-        sidebar.setBounds(40, 40, 200, getHeight() - 200);
+        sidebar.setBounds(20, 170, 200, getHeight() - 320);
         contentPanel.add(sidebar);
-        // uncomment
+        
         contentPanel.add(quizQuestionPanel);
-        // uncomment
+        
         getContentPane().add(contentPanel);
-        // uncomment
+        
         // Set quiz panel as the default panel
         currentPanel = quizQuestionPanel;
         currentPanel.setVisible(true);
-        // uncomment
+        
 
         setVisible(true);
     }
