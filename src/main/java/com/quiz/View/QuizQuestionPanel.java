@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 
 import com.quiz.View.Theme.GlassPanel;
+import com.quiz.View.Theme.ModernButton;
+import com.quiz.View.Theme.ModernTextField;
 
 import java.awt.*;
 
@@ -78,6 +80,85 @@ public class QuizQuestionPanel extends GlassPanel {
         add(scrollPane);
 
         // table view ending here
+        final JLabel errorLabel = new JLabel("");
+        errorLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        errorLabel.setForeground(new Color(255, 0, 0));
+        errorLabel.setBackground(Color.PINK);
+        errorLabel.setOpaque(true);
+        errorLabel.setVisible(false);
+        errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        errorLabel.setBounds(850, 75, 400, 25);
+        add(errorLabel);
+
+        final JTextField questionTextField = new ModernTextField("Enter the question you want to add...", color,
+                color,
+                color, color);
+        questionTextField.setBounds(850, 110, 400, 40);
+        add(questionTextField);
+
+        String[] subjects = { "Java", "Python", "JavaScript", "HTML & CSS" };
+        Integer[] subjectIds = { 1, 2, 3, 4 };
+
+        subjectMap = new HashMap<>(); // Create a new map to store subjects and IDs
+        for (int i = 0; i < subjects.length; i++) {
+            subjectMap.put(subjects[i], subjectIds[i]); // Map subject name to its ID
+        }
+
+        final JComboBox<String> subjectComboBox = new JComboBox<>(subjects);
+        subjectComboBox.setBounds(850, 170, 400, 20);
+        add(subjectComboBox);
+
+        final JTextField optionTextField1 = new ModernTextField("Enter the first option for the question",
+                color, color,
+                color, color);
+        optionTextField1.setBounds(850, 200, 400, 40);
+        add(optionTextField1);
+
+        final JTextField optionTextField2 = new ModernTextField("Enter the second option for the question",
+                color, color,
+                color, color);
+        optionTextField2.setBounds(850, 255, 400, 40);
+        add(optionTextField2);
+
+        final JTextField optionTextField3 = new ModernTextField("Enter the third option for the question",
+                color, color,
+                color, color);
+        optionTextField3.setBounds(850, 310, 400, 40);
+        add(optionTextField3);
+
+        final JTextField optionTextField4 = new ModernTextField("Enter the fourth option for the question",
+                color, color,
+                color, color);
+        optionTextField4.setBounds(850, 365, 400, 40);
+        add(optionTextField4);
+
+        final JTextField correctAnswerTextField = new ModernTextField(
+                "Enter the correct answer for the question",
+                color, color, color, color);
+        correctAnswerTextField.setBounds(850, 420, 400, 40);
+        add(correctAnswerTextField);
+
+        ModernButton addButton = new ModernButton("Add Question");
+        addButton.setBounds(850, 500, 400, 35);
+        add(addButton);
+
+        ModernButton editButton = new ModernButton("Edit Question");
+        editButton.setBounds(850, 555, 195, 35);
+        add(editButton);
+
+        ModernButton deleteButton = new ModernButton("Delete Question");
+        deleteButton.setBounds(1055, 555, 195, 35);
+        add(deleteButton);
+        // ActionListener for the "Add Question" button
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //add something to do here
+
+
+
+            }
+        });
 
     }
 }
