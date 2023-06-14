@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.quiz.Model.Profile;
+import com.quiz.Model.QuizQuestionModel;
 import com.quiz.View.Theme.Sidebar;
 
 public class TeacherQuizPage extends JFrame {
@@ -62,8 +63,13 @@ public class TeacherQuizPage extends JFrame {
         // System.out.println(userData);
         final ProfileView profile = new ProfileView(userData);
 
-        quizQuestionPanel = new QuizQuestionPanel();
+        
+        
+        QuizQuestionModel quizQuestionModel = new QuizQuestionModel();
+        ArrayList<String[]> quizData = quizQuestionModel.getQuizData();
+        quizQuestionPanel = new QuizQuestionPanel(quizData);
         // Initialize the quizQuestionPanel
+
 
         Sidebar sidebar = new Sidebar();
         sidebar.addButton("My Profile");
