@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.quiz.Model.Profile;
 import com.quiz.Model.QuizQuestionModel;
 import com.quiz.View.Theme.Sidebar;
 
@@ -57,14 +58,11 @@ public class TeacherQuizPage extends JFrame {
             e.printStackTrace();
         }
 
-        // System.out.println(userData);
+
 
         QuizQuestionModel quizQuestionModel = new QuizQuestionModel();
         ArrayList<String[]> quizData = quizQuestionModel.getQuizData();
-  
-
-        quizQuestionPanel = new QuizQuestionPanel(quizData);
-
+       quizQuestionPanel = new QuizQuestionPanel(quizData);
         // Initialize the quizQuestionPanel
 
         Sidebar sidebar = new Sidebar();
@@ -100,6 +98,8 @@ public class TeacherQuizPage extends JFrame {
 
                     // Add code for My Profile panel
 
+                    currentPanel = profile;
+                    contentPanel.add(currentPanel);
 
                 } else {
                     currentPanel = null;
