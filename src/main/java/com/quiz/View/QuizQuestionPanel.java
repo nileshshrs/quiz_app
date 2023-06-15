@@ -5,21 +5,17 @@ import java.awt.event.ActionListener;
 
 
 
-import com.quiz.View.Theme.GlassPanel;
-import com.quiz.View.Theme.ModernButton;
-import com.quiz.View.Theme.ModernTextField;
-
-import java.awt.*;
-
-import java.util.ArrayList;
-
 import javax.swing.*;
 import javax.swing.border.Border;
-
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import com.quiz.Controller.AddQuestionController;
 import com.quiz.View.Theme.GlassPanel;
+import com.quiz.View.Theme.ModernButton;
+import com.quiz.View.Theme.ModernTextField;
 
 
 import java.awt.*;
@@ -32,8 +28,6 @@ public class QuizQuestionPanel extends GlassPanel {
 
     private ArrayList<String[]> QuestionData;
     private Map<String, Integer> subjectMap;
-
-
 
     public QuizQuestionPanel(ArrayList<String[]> questionData) {
 
@@ -80,6 +74,7 @@ public class QuizQuestionPanel extends GlassPanel {
         add(scrollPane);
 
         // table view ending here
+
         final JLabel errorLabel = new JLabel("");
         errorLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         errorLabel.setForeground(new Color(255, 0, 0));
@@ -149,13 +144,21 @@ public class QuizQuestionPanel extends GlassPanel {
         ModernButton deleteButton = new ModernButton("Delete Question");
         deleteButton.setBounds(1055, 555, 195, 35);
         add(deleteButton);
+
         // ActionListener for the "Add Question" button
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //add something to do here
 
+                String selectedSubject = (String) subjectComboBox.getSelectedItem();
+                int selectedSubjectId = subjectMap.get(selectedSubject);
 
+                AddQuestionController controller = new AddQuestionController(questionTextField,
+                        optionTextField1,
+                        optionTextField2, optionTextField3, optionTextField4,
+                        correctAnswerTextField, selectedSubject,
+                        selectedSubjectId, errorLabel, tableModel);
+                controller.actionPerformed(e);
 
             }
         });
