@@ -39,6 +39,12 @@ public class TeacherQuizPage extends JFrame {
         contentPanel.setLayout(null);
         contentPanel.setBackground(new Color(35, 178, 161));
 
+        JLabel welcomeLabel = new JLabel("Welcome, " + username + "!");
+        welcomeLabel.setBounds(1400, 20, 300, 30);
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        welcomeLabel.setForeground(Color.white);
+        contentPanel.add(welcomeLabel);
+
         JLabel applicationLabel = new JLabel("Quizzeria");
         applicationLabel.setBounds(750, 0, 500, 200);
         applicationLabel.setFont(new Font("Arial", Font.BOLD, 37));
@@ -63,13 +69,10 @@ public class TeacherQuizPage extends JFrame {
         // System.out.println(userData);
         final ProfileView profile = new ProfileView(userData);
 
-        
-        
         QuizQuestionModel quizQuestionModel = new QuizQuestionModel();
         ArrayList<String[]> quizData = quizQuestionModel.getQuizData();
         quizQuestionPanel = new QuizQuestionPanel(quizData);
         // Initialize the quizQuestionPanel
-
 
         Sidebar sidebar = new Sidebar();
         sidebar.addButton("My Profile");

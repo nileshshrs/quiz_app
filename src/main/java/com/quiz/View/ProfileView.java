@@ -31,6 +31,14 @@ public class ProfileView extends GlassPanel {
         userCard.setBounds(50, 120, 700, 420); // Adjust the size and position as needed
         userCard.setLayout(null); // Use null layout for manual component positioning
 
+        // Create the heading label
+        JLabel headingLabel = new JLabel("PROFILE");
+        headingLabel.setBounds(0, 5, 700, 40); // Adjust the position and size as needed
+        headingLabel.setForeground(Color.WHITE);
+        headingLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        headingLabel.setHorizontalAlignment(JLabel.CENTER);
+        userCard.add(headingLabel);
+
         // Create labels for the fields
         JLabel idLabel = new JLabel("ID:");
         idLabel.setBounds(30, 50, 100, 30);
@@ -154,9 +162,6 @@ public class ProfileView extends GlassPanel {
         }
 
         // Add the card panel to the ProfileView
-
-
-
 
         add(userCard);
 
