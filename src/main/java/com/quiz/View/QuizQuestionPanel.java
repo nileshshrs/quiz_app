@@ -3,8 +3,6 @@ package com.quiz.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
@@ -266,6 +264,4 @@ public class QuizQuestionPanel extends GlassPanel {
         });
 
     }
-
-
 }

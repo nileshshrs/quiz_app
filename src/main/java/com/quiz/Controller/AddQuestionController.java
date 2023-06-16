@@ -20,8 +20,6 @@ import javax.swing.table.DefaultTableModel;
 
 import com.quiz.Model.AddQuizQuestions;
 
-
-
 public class AddQuestionController implements ActionListener {
     private JTextField QuestionField;
     private JTextField OptionField1;
@@ -59,8 +57,9 @@ public class AddQuestionController implements ActionListener {
         String Answer4 = OptionField4.getText().toLowerCase();
         String CorrectAnswer = CorrectAnswerField.getText().toLowerCase();
         int subjectID = SelectedSubjectId;
+        String selectedSubject = SelectedSubject;
 
-        String[] Data = { Question,
+        String[] Data = { selectedSubject, Question,
                 Answer1,
                 Answer2,
                 Answer3,
