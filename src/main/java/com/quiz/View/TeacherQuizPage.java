@@ -110,6 +110,9 @@ public class TeacherQuizPage extends JFrame {
                     currentPanel = profile;
                     contentPanel.add(currentPanel);
 
+                } else if (buttonText.equals("Log Out")) {
+                    disposeWindow();
+                    return;
                 } else {
                     currentPanel = null;
                     // Add code for other panels
@@ -133,6 +136,12 @@ public class TeacherQuizPage extends JFrame {
         currentPanel.setVisible(true);
 
         setVisible(true);
+    }
+
+    //logout
+    private void disposeWindow() {
+        new LoginView();
+        this.dispose();
     }
 
     public static void main(String[] args) {
