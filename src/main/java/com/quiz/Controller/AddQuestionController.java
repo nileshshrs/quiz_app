@@ -76,6 +76,8 @@ public class AddQuestionController implements ActionListener {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
+                    ErrorLabel.setForeground(new Color(255, 0, 0));
+                    ErrorLabel.setBackground(Color.PINK);
                     ErrorLabel.setVisible(false);
                     timer.cancel();
                 }
@@ -96,11 +98,14 @@ public class AddQuestionController implements ActionListener {
 
                 // do the sql validation here when the database is created
                 if (rs.next()) {
+                    ErrorLabel.setForeground(new Color(255, 0, 0));
+                    ErrorLabel.setBackground(Color.PINK);
                     ErrorLabel.setText("Question already exists");
                     ErrorLabel.setVisible(true);
                     timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
+
                             ErrorLabel.setText("");
                             ErrorLabel.setVisible(false);
                             timer.cancel();
@@ -110,6 +115,8 @@ public class AddQuestionController implements ActionListener {
                 } //
                 else if (Question.isEmpty() || Answer1.isEmpty() || Answer1.isEmpty() || Answer2.isEmpty()
                         || Answer3.isEmpty() || Answer4.isEmpty() || CorrectAnswer.isEmpty()) {
+                    ErrorLabel.setForeground(new Color(255, 0, 0));
+                    ErrorLabel.setBackground(Color.PINK);
                     ErrorLabel.setText("Fields cannot be empty");
                     ErrorLabel.setVisible(true);
                     timer.schedule(new TimerTask() {
