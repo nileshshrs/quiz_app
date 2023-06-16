@@ -87,7 +87,8 @@ public class EditQuestionController implements ActionListener {
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-
+                        ErrorLabel.setForeground(new Color(255, 0, 0));
+                        ErrorLabel.setBackground(Color.PINK);
                         ErrorLabel.setText("");
                         ErrorLabel.setVisible(false);
                         timer.cancel();
@@ -102,6 +103,8 @@ public class EditQuestionController implements ActionListener {
                     timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
+                            ErrorLabel.setForeground(new Color(255, 0, 0));
+                            ErrorLabel.setBackground(Color.PINK);
                             ErrorLabel.setText("");
                             ErrorLabel.setVisible(false);
                             timer.cancel();
