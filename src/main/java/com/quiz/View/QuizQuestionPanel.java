@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import com.quiz.Controller.AddQuestionController;
+import com.quiz.Controller.DeleteQuestionController;
 import com.quiz.Controller.EditQuestionController;
 import com.quiz.View.Theme.GlassPanel;
 import com.quiz.View.Theme.ModernButton;
@@ -196,7 +197,28 @@ public class QuizQuestionPanel extends GlassPanel {
             }
         });
 
+        // delete
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DeleteQuestionController deleteController = new DeleteQuestionController(table, tableModel, errorLabel);
+                deleteController.actionPerformed(e);
 
+                // int selectedRow = table.getSelectedRow();
+                // if (selectedRow != -1) {
+                // // Remove the selected row from the table model
+                // tableModel.removeRow(selectedRow);
+                // System.out.println("Row deleted: " + selectedRow);
+
+                questionTextField.setText("");
+                optionTextField1.setText("");
+                optionTextField2.setText("");
+                optionTextField3.setText("");
+                optionTextField4.setText("");
+                correctAnswerTextField.setText("");
+                // }
+            }
+        });
 
         // ActionListener for the "Edit Question" button
         editButton.addActionListener(new ActionListener() {
@@ -244,4 +266,6 @@ public class QuizQuestionPanel extends GlassPanel {
         });
 
     }
+
+
 }
