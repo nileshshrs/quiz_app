@@ -3,6 +3,11 @@ package com.quiz.Controller;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,8 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.quiz.Model.EditQuestion;
-
-
 
 public class EditQuestionController implements ActionListener {
 
@@ -62,66 +65,100 @@ public class EditQuestionController implements ActionListener {
         // System.out.println("Correct Answer: " + CorrectAnswer);
         // System.out.println("Selected Subject: " + SelectedSubject);
         // System.out.println("Selected Subject ID: " + subjectID);
+
         final Timer timer = new Timer();
-        if (Question.isEmpty() || Answer1.isEmpty() || Answer1.isEmpty() || Answer2.isEmpty()
-                || Answer3.isEmpty() || Answer4.isEmpty() || CorrectAnswer.isEmpty()) {
-            ErrorLabel.setText("Fields cannot be empty");
-            ErrorLabel.setVisible(true);
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    ErrorLabel.setText("");
-                    ErrorLabel.setVisible(false);
-                    timer.cancel();
-                }
-            }, 3000);
+        try {
+            String SQL = "SELECT * FROM questions WHERE question_text = ?";
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz_application", "root",
+                    "SiberiaV2.0");
+            PreparedStatement stmt = con.prepareStatement(SQL, ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);
 
-        } else {
-            new EditQuestion(Question, Answer1, Answer2, Answer3, Answer4, CorrectAnswer, subjectID);
+            stmt.setString(1, Question);
 
-            for (int i = 0; i < TableModel.getRowCount(); i++) {
-                String questionValue = (String) TableModel.getValueAt(i, 1); // Assuming the
+            ResultSet rs = stmt.executeQuery();
 
-                if (questionValue.equals(Question)) {
-                    // Retrieve the existing values from the table
+            // do the sql validation here when the database is created
+            if (!rs.next()) {
+                ErrorLabel.setForeground(new Color(255, 0, 0));
+                ErrorLabel.setBackground(Color.PINK);
+                ErrorLabel.setText("Question does not exists");
+                ErrorLabel.setVisible(true);
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
 
-                    // Update the values of the matching row
-                    TableModel.setValueAt(SelectedSubject, i, 0); // Assuming subject is in the
-                    // first column (index
-                    // // 0)
-                    TableModel.setValueAt(Question, i, 1);
-                    TableModel.setValueAt(Answer1, i, 2);
-                    TableModel.setValueAt(Answer2, i, 3);
-                    TableModel.setValueAt(Answer3, i, 4);
-                    TableModel.setValueAt(Answer4, i, 5);
-                    TableModel.setValueAt(CorrectAnswer, i, 6);
+                        ErrorLabel.setText("");
+                        ErrorLabel.setVisible(false);
+                        timer.cancel();
 
-                    System.out.println("Row edited: " + i);
-                    break; // Exit the loop after editing the row
+                    }
+                }, 3000);
+            } else {
+                if (Question.isEmpty() || Answer1.isEmpty() || Answer1.isEmpty() || Answer2.isEmpty()
+                        || Answer3.isEmpty() || Answer4.isEmpty() || CorrectAnswer.isEmpty()) {
+                    ErrorLabel.setText("Fields cannot be empty");
+                    ErrorLabel.setVisible(true);
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            ErrorLabel.setText("");
+                            ErrorLabel.setVisible(false);
+                            timer.cancel();
+                        }
+                    }, 3000);
+
+                } else {
+                    new EditQuestion(Question, Answer1, Answer2, Answer3, Answer4, CorrectAnswer, subjectID);
+
+                    for (int i = 0; i < TableModel.getRowCount(); i++) {
+                        String questionValue = (String) TableModel.getValueAt(i, 1); // Assuming the
+
+                        if (questionValue.equals(Question)) {
+                            // Retrieve the existing values from the table
+
+                            // Update the values of the matching row
+                            TableModel.setValueAt(SelectedSubject, i, 0); // Assuming subject is in the
+                            // first column (index
+                            // // 0)
+                            TableModel.setValueAt(Question, i, 1);
+                            TableModel.setValueAt(Answer1, i, 2);
+                            TableModel.setValueAt(Answer2, i, 3);
+                            TableModel.setValueAt(Answer3, i, 4);
+                            TableModel.setValueAt(Answer4, i, 5);
+                            TableModel.setValueAt(CorrectAnswer, i, 6);
+
+                            System.out.println("Row edited: " + i);
+                            break; // Exit the loop after editing the row
+                        }
+                    }
+
+                    ErrorLabel.setText("Question sucessfully edited.");
+                    ErrorLabel.setVisible(true);
+                    ErrorLabel.setBackground(new Color(230, 255, 237)); // light green color
+                    ErrorLabel.setForeground(new Color(0, 100, 0));
+
+                    QuestionField.setText("");
+                    OptionField1.setText("");
+                    OptionField2.setText("");
+                    OptionField3.setText("");
+                    OptionField4.setText("");
+                    CorrectAnswerField.setText("");
+
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            ErrorLabel.setText("");
+                            ErrorLabel.setVisible(false);
+                            timer.cancel();
+                        }
+                    }, 3000);
                 }
             }
-
-            ErrorLabel.setText("Question sucessfully edited.");
-            ErrorLabel.setVisible(true);
-            ErrorLabel.setBackground(new Color(230, 255, 237)); // light green color
-            ErrorLabel.setForeground(new Color(0, 100, 0));
-
-            QuestionField.setText("");
-            OptionField1.setText("");
-            OptionField2.setText("");
-            OptionField3.setText("");
-            OptionField4.setText("");
-            CorrectAnswerField.setText("");
-
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    ErrorLabel.setText("");
-                    ErrorLabel.setVisible(false);
-                    timer.cancel();
-                }
-            }, 3000);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+
     }
 
 }
