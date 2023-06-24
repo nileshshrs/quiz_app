@@ -244,5 +244,13 @@ public class ProfileView extends GlassPanel {
         changePasswordButton.setBounds(850, 485, 400, 40);
         add(changePasswordButton);
 
+        ModernButton deleteAccountButton = new ModernButton("Delete Account ?");
+        deleteAccountButton .setBounds(425, 575, 250, 40);
+        add(deleteAccountButton );
+
+        ModernButton changeEmailButton = new ModernButton("Edit Email");
+        changeEmailButton.setBounds(125, 575, 250, 40);
+        add(changeEmailButton);
+
     }
 }
