@@ -2,6 +2,7 @@ package com.quiz.View;
 
 import javax.swing.*;
 
+import com.quiz.Controller.QuizController;
 import com.quiz.Model.Quiz;
 import com.quiz.View.Theme.GlassPanel;
 import com.quiz.View.Theme.ModernButton;
@@ -154,8 +155,8 @@ public class QuizView extends GlassPanel {
 
                 ArrayList<String[]> quizData = quiz.getQuizData();
                 // Inside the ActionListener for the quiz button
-                //new QuizController(nextButton, prevButton, questionLabel, quizData, buttonGroup, optionButton1,
-                        //optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar);
+                new QuizController(nextButton, prevButton, questionLabel, quizData, buttonGroup, optionButton1,
+                        optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar);
 
                 optionButton1.setEnabled(true);
                 optionButton1.setFocusable(true);

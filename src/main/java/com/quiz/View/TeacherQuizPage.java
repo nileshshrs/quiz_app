@@ -54,7 +54,7 @@ public class TeacherQuizPage extends JFrame {
 
         ImageIcon icon = null;
         try {
-            URL imageUrl = getClass().getResource("/com/school/quiz/assets/graduation hat.png");
+            URL imageUrl = getClass().getResource("/com/assets/graduation hat.png");
             BufferedImage image = ImageIO.read(imageUrl);
             Image resizedImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
             icon = new ImageIcon(resizedImage);
@@ -140,5 +140,7 @@ public class TeacherQuizPage extends JFrame {
         new LoginView();
         this.dispose();
     }
-
+public static void main(String[] args) {
+    new TeacherQuizPage("nilesh", 2);
+}
 }
