@@ -1,7 +1,9 @@
+// QuizController.java
 package com.quiz.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -16,9 +18,6 @@ import javax.swing.JRadioButton;
 import javax.swing.Timer;
 
 import com.quiz.View.PassFailView;
-
-
-
 
 public class QuizController {
 
@@ -97,11 +96,6 @@ public class QuizController {
                 if (CurrentIndex >= quizData.size()) {
                     showScore();
                     remainingTime = 20;
-
-                    percentage = score / quizData.size() * 100;
-                    String passFailStatus = (percentage >= 40.0 ? "PASS" : "FAIL");
-
-                    new PassFailView(percentage, score, quizData.size(), passFailStatus);
                     subjectPanel.setVisible(true);
                     CurrentIndex = 0;
                     timer.stop();
@@ -145,6 +139,14 @@ public class QuizController {
     private void showScore() {
         System.out.println("Quiz Completed! Score: " + score + "/" + quizData.size());
         questionLabel.setText("Quiz Completed! Score: " + score + "/" + quizData.size());
+
+        double percentage = (score * 1.0 / quizData.size()) * 100;
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        String formattedPercentage = decimalFormat.format(percentage);
+
+        String passFailStatus = (percentage >= 40.0 ? "PASS" : "FAIL");
+
+        new PassFailView(Double.parseDouble(formattedPercentage), score, quizData.size(), passFailStatus);
         nextButton.setEnabled(false);
         prevButton.setEnabled(false);
         optionButton1.setEnabled(false);
@@ -173,6 +175,7 @@ public class QuizController {
                     timerLabel.setText("Time: " + remainingTime + " seconds");
 
                 } else {
+                    checkAnswer();
                     showScore();
 
                     subjectPanel.setVisible(true);
