@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Timer;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -16,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+
 import javax.swing.WindowConstants;
 
 import com.quiz.Model.Profile;
@@ -27,9 +31,10 @@ public class TeacherQuizPage extends JFrame {
     private JPanel currentPanel;
     private QuizQuestionPanel quizQuestionPanel;
     private String USERNAME;
+    private int id;
 
-    public TeacherQuizPage(String username) {
-
+    public TeacherQuizPage(String username, int ID) {
+        this.id = ID;
         this.USERNAME = username;
         setTitle("Quiz Application");
         setSize(1600, 1000);
@@ -42,19 +47,19 @@ public class TeacherQuizPage extends JFrame {
         contentPanel.setBackground(new Color(35, 178, 161));
 
         JLabel applicationLabel = new JLabel("Quizzeria");
-        applicationLabel.setBounds(750, 0, 500, 200);
+        applicationLabel.setBounds(800, 0, 500, 200);
         applicationLabel.setFont(new Font("Arial", Font.BOLD, 37));
         applicationLabel.setForeground(Color.WHITE);
         contentPanel.add(applicationLabel);
 
         ImageIcon icon = null;
         try {
-            URL imageUrl = getClass().getResource("/com/Assets/graduation hat.png");
+            URL imageUrl = getClass().getResource("/com/school/quiz/assets/graduation hat.png");
             BufferedImage image = ImageIO.read(imageUrl);
             Image resizedImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
             icon = new ImageIcon(resizedImage);
             JLabel imageLabel = new JLabel(icon);
-            imageLabel.setBounds(650, 45, imageLabel.getPreferredSize().width, imageLabel.getPreferredSize().height);
+            imageLabel.setBounds(700, 45, imageLabel.getPreferredSize().width, imageLabel.getPreferredSize().height);
             contentPanel.add(imageLabel);
         } catch (IOException e) {
             e.printStackTrace();
@@ -62,15 +67,18 @@ public class TeacherQuizPage extends JFrame {
         // getting quiz data
 
         QuizQuestionModel quizQuestionModel = new QuizQuestionModel();
-        ArrayList<String[]> quizData = quizQuestionModel.getQuizData();
+        final ArrayList<String[]> quizData = quizQuestionModel.getQuizData();
 
         // getting profile data
 
         Profile profileData = new Profile(USERNAME);
-        ArrayList<String[]> userData = profileData.getUserData();
+        final ArrayList<String[]> userData = profileData.getUserData();
 
         quizQuestionPanel = new QuizQuestionPanel(quizData);
-        final ProfileView profile = new ProfileView(userData);
+
+        // quiz panel
+
+        final QuizView quiz = new QuizView(id);
 
         Sidebar sidebar = new Sidebar();
         sidebar.addButton("My Profile");
@@ -97,7 +105,11 @@ public class TeacherQuizPage extends JFrame {
                     quizQuestionPanel.setVisible(true);
                     currentPanel = quizQuestionPanel;
                 } else if (buttonText.equals("My Profile")) {
+                    ProfileView profile = new ProfileView(userData);
                     currentPanel = profile;
+                    contentPanel.add(currentPanel);
+                } else if (buttonText.equals("Take Quiz")) {
+                    currentPanel = quiz;
                     contentPanel.add(currentPanel);
                 } else if (buttonText.equals("Log Out")) {
                     disposeWindow();
@@ -113,11 +125,11 @@ public class TeacherQuizPage extends JFrame {
 
         sidebar.setBounds(20, 170, 200, getHeight() - 320);
         contentPanel.add(sidebar);
-        contentPanel.add(quizQuestionPanel);
+        contentPanel.add(quiz);
 
         getContentPane().add(contentPanel);
 
-        currentPanel = quizQuestionPanel;
+        currentPanel = quiz;
         currentPanel.setVisible(true);
 
         setVisible(true);
@@ -127,10 +139,6 @@ public class TeacherQuizPage extends JFrame {
     private void disposeWindow() {
         new LoginView();
         this.dispose();
-    }
-
-    public static void main(String[] args) {
-        new TeacherQuizPage("nilesh");
     }
 
 }
