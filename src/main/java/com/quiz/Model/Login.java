@@ -26,7 +26,7 @@ public class Login {
 
     private void loginWithRole() {
         for (String[] data : userData) {
-            String username = data[3];
+            String username = data[3]; int ID = Integer.valueOf(data[0]);
             String role = data[6];
             if (role.equals("student")) {
                 // System.out.println(username);
@@ -34,8 +34,8 @@ public class Login {
                 // new TeacherQuizPage(username);
             } else if (role.equals("teacher")) {
                 // System.out.println(username);
-                new StudentQuizPage();
-                // new TeacherQuizPage(username);
+                // new StudentQuizPage();
+                new TeacherQuizPage(username,ID);
             }
         }
     }

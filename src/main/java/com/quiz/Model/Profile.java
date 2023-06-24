@@ -1,0 +1,104 @@
+package com.quiz.Model;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Profile {
+    private ArrayList<String[]> userData;
+    private String USERNAME;
+
+    public Profile(String username) {
+        userData = new ArrayList<>();
+        setusername(username);
+        getProfile(USERNAME);
+    }
+
+    public void setusername(String username) {
+        this.USERNAME = username;
+    }
+
+    public String username() {
+        return USERNAME;
+    }
+
+    public ArrayList<String[]> getUserData() {
+        return userData;
+    }
+
+    public void setUserData(ArrayList<String[]> userData) {
+        this.userData = userData;
+    }
+
+    public void getProfile(String username) {
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        String sql = "SELECT u.id, u.firstname, u.lastname, u.username, u.email, u.role, u.password, ui.age, ui.address, ui.phonenumber " +
+                     "FROM users u LEFT JOIN user_info ui ON u.id = ui.user_id " +
+                     "WHERE u.username = ?";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/quiz_application?user=root&password=SiberiaV2.0");
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                int ID = rs.getInt("id");
+                String first_name = rs.getString("firstname");
+                String last_name = rs.getString("lastname");
+                String user_name = rs.getString("username");
+                String email = rs.getString("email");
+                String role = rs.getString("role");
+                String password = rs.getString("password");
+                String age = rs.getString("age");
+                String address = rs.getString("address");
+                String phonenumber = rs.getString("phonenumber");
+
+                String[] Data = {
+                        String.valueOf(ID),
+                        first_name,
+                        last_name,
+                        user_name,
+                        email,
+                        role,
+                        password,
+                        age,
+                        address,
+                        phonenumber
+                };
+                // System.out.println(Arrays.toString(Data));
+                userData.add(Data);
+                setUserData(userData);
+            }
+
+        } catch (ClassNotFoundException exception) {
+            System.out.println("MySQL JDBC driver not found");
+            exception.printStackTrace();
+        } catch (SQLException exception) {
+            System.out.println("Failed to connect to the database");
+            exception.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException exception) {
+                System.out.println("Failed to close the connection");
+                exception.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Profile("avarittia");
+    }
+}
