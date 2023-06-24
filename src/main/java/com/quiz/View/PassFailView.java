@@ -35,7 +35,7 @@ public class PassFailView extends JFrame {
         if (passFailStatus.equals("PASS")) {
             try {
                 // Get the URL of the image
-                URL imageUrl = getClass().getResource("/com/school/quiz/assets/Pass.png");
+                URL imageUrl = getClass().getResource("/com/assets/Pass.png");
 
                 // Read the image from the URL
                 BufferedImage image = ImageIO.read(imageUrl);
@@ -64,13 +64,13 @@ public class PassFailView extends JFrame {
         } else {
             try {
                 // Get the URL of the image
-                URL imageUrl = getClass().getResource("/com/school/quiz/assets/Fail.png");
+                URL imageUrl = getClass().getResource("/com/assets/Fail.png");
 
                 // Read the image from the URL
                 BufferedImage image = ImageIO.read(imageUrl);
 
                 // Resize the image
-                Image resizedImage = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+                Image resizedImage = image.getScaledInstance(230, 250, Image.SCALE_SMOOTH);
 
                 // Create an ImageIcon from the resized image
                 ImageIcon icon = new ImageIcon(resizedImage);
