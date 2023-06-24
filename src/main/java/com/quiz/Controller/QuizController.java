@@ -100,7 +100,16 @@ public class QuizController {
             }
         });
 
-   
+        prevButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CurrentIndex--;
+                if (CurrentIndex < 0) {
+                    CurrentIndex = 0;
+                }
+                updateQuizView();
+            }
+        });
     }
 
 
