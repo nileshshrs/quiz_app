@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Profile {
-     private ArrayList<String[]> userData;
-
+    private ArrayList<String[]> userData;
     private String USERNAME;
 
     public Profile(String username) {
-
-        userData = new ArrayList<>()    ;
+        userData = new ArrayList<>();
         setusername(username);
-
         getProfile(USERNAME);
     }
 
@@ -25,7 +22,7 @@ public class Profile {
         return USERNAME;
     }
 
-        public ArrayList<String[]> getUserData() {
+    public ArrayList<String[]> getUserData() {
         return userData;
     }
 
@@ -37,7 +34,9 @@ public class Profile {
 
         Connection connection = null;
         PreparedStatement statement = null;
-        String sql = "SELECT * from users where username = ?";
+        String sql = "SELECT u.id, u.firstname, u.lastname, u.username, u.email, u.role, u.password, ui.age, ui.address, ui.phonenumber " +
+                     "FROM users u LEFT JOIN user_info ui ON u.id = ui.user_id " +
+                     "WHERE u.username = ?";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -57,21 +56,26 @@ public class Profile {
                 String email = rs.getString("email");
                 String role = rs.getString("role");
                 String password = rs.getString("password");
+                String age = rs.getString("age");
+                String address = rs.getString("address");
+                String phonenumber = rs.getString("phonenumber");
 
-                String Data[] = {
+                String[] Data = {
                         String.valueOf(ID),
                         first_name,
                         last_name,
                         user_name,
                         email,
                         role,
-                        password
+                        password,
+                        age,
+                        address,
+                        phonenumber
                 };
-
+                // System.out.println(Arrays.toString(Data));
                 userData.add(Data);
                 setUserData(userData);
             }
-
 
         } catch (ClassNotFoundException exception) {
             System.out.println("MySQL JDBC driver not found");

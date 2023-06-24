@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.quiz.Controller.ProfileInformationController;
 import com.quiz.View.Theme.GlassPanel;
 import com.quiz.View.Theme.ModernButton;
 import com.quiz.View.Theme.ModernTextField;
@@ -25,6 +26,7 @@ public class ProfileView extends GlassPanel {
 
     private ArrayList<String[]> userData;
     private JPanel userCard;
+    private int ID;
 
     public ProfileView(ArrayList<String[]> userdata) {
         this.userData = userdata;
@@ -140,7 +142,7 @@ public class ProfileView extends GlassPanel {
         userCard.add(addressLabel);
 
         final JLabel addressText = new JLabel();
-        addressText.setBounds(140, 290, 150, 30);
+        addressText.setBounds(140, 290, 300, 30);
         addressText.setForeground(Color.WHITE);
         addressText.setFont(new Font("Arial", Font.PLAIN, 14));
         userCard.add(addressText);
@@ -158,15 +160,29 @@ public class ProfileView extends GlassPanel {
         userCard.add(phoneText);
 
         for (String data[] : userData) {
+            this.ID = Integer.parseInt(data[0]);
             idText.setText(data[0]);
             firstNameText.setText(WordUtils.capitalize(data[1]));
             lastNameText.setText(WordUtils.capitalize(data[2]));
             usernameText.setText(WordUtils.capitalize(data[3]));
             emailText.setText(WordUtils.capitalize(data[4]));
-            ageText.setText("not set");
+            if (data[7] == null) {
+                ageText.setText("not set");
+            } else {
+                ageText.setText(data[7]);
+            }
             roleText.setText(WordUtils.capitalize(data[5]));
-            addressText.setText("not set");
-            phoneText.setText("not set");
+            if (data[8] == null) {
+                addressText.setText("not set");
+            } else {
+                addressText.setText(data[8]);
+            }
+            if (data[8] == null) {
+                phoneText.setText("not set");
+            } else {
+                phoneText.setText(data[9]);
+            }
+            
         }
 
         // Add the card panel to the ProfileView
@@ -217,9 +233,10 @@ public class ProfileView extends GlassPanel {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ageText.setText(ageField.getText());
-                addressText.setText(addressField.getText());
-                phoneText.setText(phoneField.getText());
+
+                ProfileInformationController controller = new ProfileInformationController(ageField, ageText,
+                        addressField, addressText, phoneField, phoneText, ID, errorLabel);
+                controller.actionPerformed(e);
             }
         });
 
