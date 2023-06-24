@@ -17,6 +17,7 @@ import javax.swing.Timer;
 
 
 
+
 public class QuizController {
 
     JButton nextButton, prevButton;
@@ -56,7 +57,6 @@ public class QuizController {
         setButtonActions();
         startTimer();
 
-
     }
 
     private void updateQuizView() {
@@ -76,9 +76,10 @@ public class QuizController {
         } else {
             nextButton.setText("Next");
         }
+
+        // Update the progress bar
         int progress = calculateProgress();
         progressBar.setValue(progress);
-
     }
 
     private void clearSelection() {
@@ -89,16 +90,19 @@ public class QuizController {
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              
+                checkAnswer();
                 CurrentIndex++;
                 if (CurrentIndex >= quizData.size()) {
-                    // showScore();
+                    showScore();
                     remainingTime = 20;
 
+                    percentage = score / quizData.size() * 100;
+                    String passFailStatus = (percentage >= 40.0 ? "PASS" : "FAIL");
+
+                    
                     subjectPanel.setVisible(true);
                     CurrentIndex = 0;
                     timer.stop();
-
                 }
                 updateQuizView();
             }
@@ -116,10 +120,48 @@ public class QuizController {
         });
     }
 
+    private void checkAnswer() {
+        String[] currentQuestion = quizData.get(CurrentIndex);
+        String correctAnswer = currentQuestion[5];
+        String selectedAnswer = getSelectedAnswer();
+        if (correctAnswer.equals(selectedAnswer)) {
+            score++;
+        }
+    }
 
- 
+    private String getSelectedAnswer() {
+        Enumeration<AbstractButton> buttons = buttonGroup.getElements();
+        while (buttons.hasMoreElements()) {
+            JRadioButton button = (JRadioButton) buttons.nextElement();
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+        return null;
+    }
 
-    // timer
+    private void showScore() {
+        System.out.println("Quiz Completed! Score: " + score + "/" + quizData.size());
+        questionLabel.setText("Quiz Completed! Score: " + score + "/" + quizData.size());
+        nextButton.setEnabled(false);
+        prevButton.setEnabled(false);
+        optionButton1.setEnabled(false);
+        optionButton1.setFocusable(false);
+        optionButton1.setRequestFocusEnabled(false);
+
+        optionButton2.setEnabled(false);
+        optionButton2.setFocusable(false);
+        optionButton2.setRequestFocusEnabled(false);
+
+        optionButton3.setEnabled(false);
+        optionButton3.setFocusable(false);
+        optionButton3.setRequestFocusEnabled(false);
+
+        optionButton4.setEnabled(false);
+        optionButton4.setFocusable(false);
+        optionButton4.setRequestFocusEnabled(false);
+    }
+
     private void startTimer() {
         timer = new Timer(1000, new ActionListener() {
             @Override
@@ -129,7 +171,7 @@ public class QuizController {
                     timerLabel.setText("Time: " + remainingTime + " seconds");
 
                 } else {
-                    
+                    showScore();
 
                     subjectPanel.setVisible(true);
                     CurrentIndex = 0;
@@ -142,8 +184,11 @@ public class QuizController {
         });
         timer.start();
     }
+
     private int calculateProgress() {
         double progress = (CurrentIndex + 1.0) / quizData.size() * 100;
         return (int) progress;
     }
+
+    // timer
 }
