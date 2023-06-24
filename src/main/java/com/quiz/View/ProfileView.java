@@ -4,14 +4,22 @@ import org.apache.commons.text.WordUtils;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.quiz.View.Theme.GlassPanel;
+import com.quiz.View.Theme.ModernButton;
+import com.quiz.View.Theme.ModernTextField;
 
 public class ProfileView extends GlassPanel {
 
@@ -20,7 +28,7 @@ public class ProfileView extends GlassPanel {
 
     public ProfileView(ArrayList<String[]> userdata) {
         this.userData = userdata;
-
+        Color color = new Color(245, 245, 245, 200);
         setLayout(null);
         setBounds(250, 170, 1300, 680);
 
@@ -101,13 +109,13 @@ public class ProfileView extends GlassPanel {
         emailText.setFont(new Font("Arial", Font.PLAIN, 14));
         userCard.add(emailText);
 
-        JLabel ageLabel = new JLabel("Age:");
+        final JLabel ageLabel = new JLabel("Age:");
         ageLabel.setBounds(30, 210, 100, 30);
         ageLabel.setForeground(Color.WHITE);
         ageLabel.setFont(new Font("Arial", Font.BOLD, 14));
         userCard.add(ageLabel);
 
-        JLabel ageText = new JLabel();
+        final JLabel ageText = new JLabel();
         ageText.setBounds(140, 210, 150, 30);
         ageText.setForeground(Color.WHITE);
         ageText.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -125,25 +133,25 @@ public class ProfileView extends GlassPanel {
         roleText.setFont(new Font("Arial", Font.PLAIN, 14));
         userCard.add(roleText);
 
-        JLabel addressLabel = new JLabel("Address:");
+        final JLabel addressLabel = new JLabel("Address:");
         addressLabel.setBounds(30, 290, 100, 30);
         addressLabel.setForeground(Color.WHITE);
         addressLabel.setFont(new Font("Arial", Font.BOLD, 14));
         userCard.add(addressLabel);
 
-        JLabel addressText = new JLabel();
+        final JLabel addressText = new JLabel();
         addressText.setBounds(140, 290, 150, 30);
         addressText.setForeground(Color.WHITE);
         addressText.setFont(new Font("Arial", Font.PLAIN, 14));
         userCard.add(addressText);
 
-        JLabel phoneLabel = new JLabel("Phone No. :");
+        final JLabel phoneLabel = new JLabel("Phone No. :");
         phoneLabel.setBounds(30, 330, 100, 30);
         phoneLabel.setForeground(Color.WHITE);
         phoneLabel.setFont(new Font("Arial", Font.BOLD, 14));
         userCard.add(phoneLabel);
 
-        JLabel phoneText = new JLabel();
+        final JLabel phoneText = new JLabel();
         phoneText.setBounds(140, 330, 150, 30);
         phoneText.setForeground(Color.WHITE);
         phoneText.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -164,6 +172,60 @@ public class ProfileView extends GlassPanel {
         // Add the card panel to the ProfileView
 
         add(userCard);
+
+        final JLabel TitleLabel = new JLabel("Add Information");
+        TitleLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        TitleLabel.setForeground(Color.WHITE);
+        TitleLabel.setBackground(new Color(116, 202, 192));
+        TitleLabel.setOpaque(true);
+        TitleLabel.setVisible(true);
+        TitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        TitleLabel.setBounds(850, 125, 400, 40);
+        add(TitleLabel);
+
+        final JLabel errorLabel = new JLabel("");
+        errorLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        errorLabel.setForeground(new Color(255, 0, 0));
+        errorLabel.setBackground(Color.PINK);
+        errorLabel.setOpaque(true);
+        errorLabel.setVisible(false);
+        errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        errorLabel.setBounds(850, 175, 400, 25);
+        add(errorLabel);
+
+        final JTextField ageField = new ModernTextField("Age",
+                color, color,
+                color, color);
+        ageField.setBounds(850, 225, 400, 40);
+        add(ageField);
+
+        final JTextField addressField = new ModernTextField("Address",
+                color, color,
+                color, color);
+        addressField.setBounds(850, 285, 400, 40);
+        add(addressField);
+
+        final JTextField phoneField = new ModernTextField("Phone Number",
+                color, color,
+                color, color);
+        phoneField.setBounds(850, 345, 400, 40);
+        add(phoneField);
+
+        ModernButton addButton = new ModernButton("Save");
+        addButton.setBounds(850, 415, 400, 40);
+        add(addButton);
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ageText.setText(ageField.getText());
+                addressText.setText(addressField.getText());
+                phoneText.setText(phoneField.getText());
+            }
+        });
+
+        ModernButton changePasswordButton = new ModernButton("Edit Password");
+        changePasswordButton.setBounds(850, 485, 400, 40);
+        add(changePasswordButton);
 
     }
 }
