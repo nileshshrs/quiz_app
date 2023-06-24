@@ -76,6 +76,8 @@ public class QuizController {
         } else {
             nextButton.setText("Next");
         }
+        int progress = calculateProgress();
+        progressBar.setValue(progress);
 
     }
 
@@ -139,5 +141,9 @@ public class QuizController {
             }
         });
         timer.start();
+    }
+    private int calculateProgress() {
+        double progress = (CurrentIndex + 1.0) / quizData.size() * 100;
+        return (int) progress;
     }
 }
