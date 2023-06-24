@@ -15,6 +15,8 @@ import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.Timer;
 
+import com.quiz.View.PassFailView;
+
 
 
 
@@ -99,7 +101,7 @@ public class QuizController {
                     percentage = score / quizData.size() * 100;
                     String passFailStatus = (percentage >= 40.0 ? "PASS" : "FAIL");
 
-                    
+                    new PassFailView(percentage, score, quizData.size(), passFailStatus);
                     subjectPanel.setVisible(true);
                     CurrentIndex = 0;
                     timer.stop();
