@@ -35,6 +35,12 @@ public class QuizQuestionPanel extends GlassPanel {
         setLayout(null);
         setBounds(250, 170, 1300, 680);
 
+        JLabel titleLabel = new JLabel("Quiz Questions");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBounds(550, 20, 200, 30);
+        add(titleLabel);
+
         // Create a DefaultTableModel to hold the data for the JTable
         final DefaultTableModel tableModel = new DefaultTableModel();
         final JTable table = new JTable(tableModel);
