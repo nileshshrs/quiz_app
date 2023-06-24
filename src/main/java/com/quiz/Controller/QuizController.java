@@ -54,6 +54,7 @@ public class QuizController {
 
         updateQuizView();
         setButtonActions();
+        startTimer();
 
 
     }
@@ -94,6 +95,7 @@ public class QuizController {
 
                     subjectPanel.setVisible(true);
                     CurrentIndex = 0;
+                    timer.stop();
 
                 }
                 updateQuizView();
@@ -116,4 +118,26 @@ public class QuizController {
  
 
     // timer
+    private void startTimer() {
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remainingTime--;
+                if (remainingTime >= 0) {
+                    timerLabel.setText("Time: " + remainingTime + " seconds");
+
+                } else {
+                    
+
+                    subjectPanel.setVisible(true);
+                    CurrentIndex = 0;
+                    timer.stop();
+                    timerLabel.setText("Time's up!");
+
+                    // Call any method or perform any action when the timer ends
+                }
+            }
+        });
+        timer.start();
+    }
 }
