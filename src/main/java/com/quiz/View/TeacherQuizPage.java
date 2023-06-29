@@ -22,15 +22,17 @@ import javax.swing.WindowConstants;
 
 import com.quiz.Model.Profile;
 import com.quiz.Model.QuizQuestionModel;
+import com.quiz.Model.UserScore;
 import com.quiz.View.Theme.Sidebar;
 
 public class TeacherQuizPage extends JFrame {
 
-    private JPanel currentPanel;
+    private JPanel currentPanel, contentPanel;
     private QuizQuestionPanel quizQuestionPanel;
     private String USERNAME;
     private int id;
-    private Profile  profileData;
+    private Profile profileData;
+    private UserScore userScore;
 
     public TeacherQuizPage(String username, int ID) {
         this.id = ID;
@@ -42,7 +44,7 @@ public class TeacherQuizPage extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        final JPanel contentPanel = new JPanel();
+        contentPanel = new JPanel();
         contentPanel.setLayout(null);
         contentPanel.setBackground(new Color(35, 178, 161));
 
@@ -70,8 +72,6 @@ public class TeacherQuizPage extends JFrame {
         final ArrayList<String[]> quizData = quizQuestionModel.getQuizData();
 
         // getting profile data
-
-
 
         quizQuestionPanel = new QuizQuestionPanel(quizData);
 
@@ -111,6 +111,9 @@ public class TeacherQuizPage extends JFrame {
                 } else if (buttonText.equals("Take Quiz")) {
                     currentPanel = quiz;
                     contentPanel.add(currentPanel);
+                } else if (buttonText.equals("Your Scores")) {
+                    setScorePanel(id);
+
                 } else if (buttonText.equals("Log Out")) {
                     disposeWindow();
                     return;
@@ -123,7 +126,9 @@ public class TeacherQuizPage extends JFrame {
             }
         });
 
-        sidebar.setBounds(20, 170, 200, getHeight() - 320);
+        sidebar.setBounds(20, 170, 200,
+
+                getHeight() - 320);
         contentPanel.add(sidebar);
         contentPanel.add(quiz);
 
@@ -133,6 +138,14 @@ public class TeacherQuizPage extends JFrame {
         currentPanel.setVisible(true);
 
         setVisible(true);
+    }
+
+    private void setScorePanel(int id) {
+        this.userScore = new UserScore(id);
+        ArrayList<String[]> scoreData = userScore.getUserScore();
+
+        currentPanel = new ScoreView(scoreData);
+        contentPanel.add(currentPanel);
     }
 
     // logout
