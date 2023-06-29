@@ -45,9 +45,32 @@ public class ProfileInformationController implements ActionListener {
         ErrorLabel.setBackground(new Color(230, 255, 237)); // light green color
         ErrorLabel.setForeground(new Color(0, 100, 0));
 
-        ageText.setText(age);
-        addressText.setText(address);
-        phoneText.setText(phonenumber);
+        if (age.isEmpty()) {
+            ageText.setText("not set");
+        } else {
+
+            ageText.setText(age);
+        }
+
+        if (address.isEmpty()) {
+            addressText.setText("not set");
+        } else {
+
+            addressText.setText(address);
+
+        }
+
+        if (phonenumber.isEmpty()) {
+            phoneText.setText("not set");
+        } else {
+
+            phoneText.setText(phonenumber);
+
+        }
+
+        ageTextField.setText("");
+        addressField.setText("");
+        phoneField.setText("");
 
         timer.schedule(new TimerTask() {
             @Override

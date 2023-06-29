@@ -20,8 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import javax.swing.WindowConstants;
-
 import com.quiz.Model.Profile;
 import com.quiz.Model.QuizQuestionModel;
 import com.quiz.View.Theme.Sidebar;
@@ -32,10 +30,12 @@ public class TeacherQuizPage extends JFrame {
     private QuizQuestionPanel quizQuestionPanel;
     private String USERNAME;
     private int id;
+    private Profile  profileData;
 
     public TeacherQuizPage(String username, int ID) {
         this.id = ID;
         this.USERNAME = username;
+        this.profileData = new Profile(USERNAME);
         setTitle("Quiz Application");
         setSize(1600, 1000);
         setLocationRelativeTo(null);
@@ -71,8 +71,7 @@ public class TeacherQuizPage extends JFrame {
 
         // getting profile data
 
-        Profile profileData = new Profile(USERNAME);
-        final ArrayList<String[]> userData = profileData.getUserData();
+
 
         quizQuestionPanel = new QuizQuestionPanel(quizData);
 
@@ -105,6 +104,7 @@ public class TeacherQuizPage extends JFrame {
                     quizQuestionPanel.setVisible(true);
                     currentPanel = quizQuestionPanel;
                 } else if (buttonText.equals("My Profile")) {
+                    ArrayList<String[]> userData = profileData.getUserData(); // Retrieve updated profile data
                     ProfileView profile = new ProfileView(userData);
                     currentPanel = profile;
                     contentPanel.add(currentPanel);
@@ -140,7 +140,8 @@ public class TeacherQuizPage extends JFrame {
         new LoginView();
         this.dispose();
     }
-public static void main(String[] args) {
-    new TeacherQuizPage("nilesh", 2);
-}
+
+    public static void main(String[] args) {
+        new TeacherQuizPage("nilesh", 2);
+    }
 }

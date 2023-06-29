@@ -166,23 +166,28 @@ public class ProfileView extends GlassPanel {
             lastNameText.setText(WordUtils.capitalize(data[2]));
             usernameText.setText(WordUtils.capitalize(data[3]));
             emailText.setText(WordUtils.capitalize(data[4]));
-            if (data[7] == null) {
+
+            roleText.setText(WordUtils.capitalize(data[5]));
+            if (data[7] == null || data[7].isEmpty()) {
                 ageText.setText("not set");
             } else {
                 ageText.setText(data[7]);
             }
-            roleText.setText(WordUtils.capitalize(data[5]));
-            if (data[8] == null) {
+
+            // Update the condition for addressText
+            if (data[8] == null || data[8].isEmpty()) {
                 addressText.setText("not set");
             } else {
                 addressText.setText(data[8]);
             }
-            if (data[8] == null) {
+
+            // Update the condition for phoneText
+            if (data[9] == null || data[9].isEmpty()) {
                 phoneText.setText("not set");
             } else {
                 phoneText.setText(data[9]);
             }
-            
+
         }
 
         // Add the card panel to the ProfileView
@@ -245,8 +250,8 @@ public class ProfileView extends GlassPanel {
         add(changePasswordButton);
 
         ModernButton deleteAccountButton = new ModernButton("Delete Account ?");
-        deleteAccountButton .setBounds(425, 575, 250, 40);
-        add(deleteAccountButton );
+        deleteAccountButton.setBounds(425, 575, 250, 40);
+        add(deleteAccountButton);
 
         ModernButton changeEmailButton = new ModernButton("Edit Email");
         changeEmailButton.setBounds(125, 575, 250, 40);
