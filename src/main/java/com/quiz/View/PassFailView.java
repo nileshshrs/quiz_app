@@ -12,16 +12,26 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import com.quiz.Model.Score;
 import com.quiz.View.Theme.ModernButton;
-
 
 public class PassFailView extends JFrame {
 
     private JPanel contentPanel;
     private JLabel correctAnswerLabel, statusLabel, titleLabel;
     private JButton closeButton;
+    private int id, Quiz_id, TotalQuestions, Score;
+    private double Percentage;
+    private String PassFailStatus;
 
-    public PassFailView(double percentage, int score, int totalQuestions, String passFailStatus) {
+    public PassFailView(double percentage, int score, int totalQuestions, String passFailStatus, int ID, int quiz_id) {
+
+        this.id = ID;
+        this.Quiz_id = quiz_id;
+        this.Percentage = percentage;
+        this.Score = score;
+        this.TotalQuestions = totalQuestions;
+        this.PassFailStatus = passFailStatus;
 
         setTitle("Quiz Status");
         setResizable(false);
@@ -118,10 +128,11 @@ public class PassFailView extends JFrame {
         closeButton.setBackground(new Color(64, 144, 128));
         contentPanel.add(closeButton);
 
+        recordScore();
+
         closeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-
             }
         });
 
@@ -133,8 +144,12 @@ public class PassFailView extends JFrame {
         setVisible(true);
     }
 
+    public void recordScore() {
+        new Score().recordScore(id, Quiz_id, Percentage, Score, TotalQuestions, PassFailStatus);
+    }
+
     public static void main(String[] args) {
-        new PassFailView(75.0, 15, 20, "PASS");
+        new PassFailView(75.0, 15, 20, "PASS", 2, 1);
 
     }
 }

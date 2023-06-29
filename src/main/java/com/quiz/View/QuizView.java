@@ -160,25 +160,25 @@ public class QuizView extends GlassPanel {
                 if (clickedButton.getText().equals("Java")) {
                     QuizController controller = new QuizController(nextButton, prevButton, questionLabel,
                             getJavaQuizData(), buttonGroup, optionButton1,
-                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar);
+                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar,1);
                     ;
                     controller.updateQuizView();
                 } else if (clickedButton.getText().equals("Python")) {
                     QuizController controller = new QuizController(nextButton, prevButton, questionLabel,
                             getPythonQuizData(), buttonGroup, optionButton1,
-                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar);
+                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar,2);
                     ;
                     controller.updateQuizView();
                 } else if (clickedButton.getText().equals("JavaScript")) {
                     QuizController controller = new QuizController(nextButton, prevButton, questionLabel,
                             getJavascriptQuizData(), buttonGroup, optionButton1,
-                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar);
+                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar,3);
                     ;
                     controller.updateQuizView();
                 } else if (clickedButton.getText().equals("HTML & CSS")) {
                     QuizController controller = new QuizController(nextButton, prevButton, questionLabel,
                             getHtmlCssQuizData(), buttonGroup, optionButton1,
-                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar);
+                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar,4);
                     ;
                     controller.updateQuizView();
                 }

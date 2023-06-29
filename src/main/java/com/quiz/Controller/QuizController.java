@@ -33,10 +33,11 @@ public class QuizController {
     double percentage;
     JProgressBar progressBar;
     String[] currentQuestion;
+    int quiz_id;
 
     public QuizController(JButton nextButton, JButton prevButton, JLabel questionLabel, ArrayList<String[]> quizData,
             ButtonGroup buttonGroup, JRadioButton optionButton1, JRadioButton optionButton2, JRadioButton optionButton3,
-            JRadioButton optionButton4, JLabel timerLabel, JPanel subjectPanel, int ID, JProgressBar progressBar) {
+            JRadioButton optionButton4, JLabel timerLabel, JPanel subjectPanel, int ID, JProgressBar progressBar, int quiz_id) {
 
         Collections.shuffle(quizData);
         this.nextButton = nextButton;
@@ -55,6 +56,7 @@ public class QuizController {
         remainingTime = 600;
         score = 0;
         this.progressBar = progressBar;
+        this.quiz_id=quiz_id;
 
         updateQuizView();
         setButtonActions();
@@ -155,7 +157,7 @@ public class QuizController {
 
         String passFailStatus = (percentage >= 40.0 ? "PASS" : "FAIL");
 
-        new PassFailView(Double.parseDouble(formattedPercentage), score, quizData.size(), passFailStatus);
+        new PassFailView(Double.parseDouble(formattedPercentage), score, quizData.size(), passFailStatus, ID, quiz_id);
         nextButton.setEnabled(false);
         prevButton.setEnabled(false);
         optionButton1.setEnabled(false);
