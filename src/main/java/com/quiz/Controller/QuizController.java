@@ -1,4 +1,3 @@
-// QuizController.java
 package com.quiz.Controller;
 
 import java.awt.event.ActionEvent;
@@ -19,6 +18,8 @@ import javax.swing.Timer;
 
 import com.quiz.View.PassFailView;
 
+
+
 public class QuizController {
 
     JButton nextButton, prevButton;
@@ -31,6 +32,7 @@ public class QuizController {
     Timer timer;
     double percentage;
     JProgressBar progressBar;
+    String[] currentQuestion;
 
     public QuizController(JButton nextButton, JButton prevButton, JLabel questionLabel, ArrayList<String[]> quizData,
             ButtonGroup buttonGroup, JRadioButton optionButton1, JRadioButton optionButton2, JRadioButton optionButton3,
@@ -49,9 +51,9 @@ public class QuizController {
         this.timerLabel = timerLabel;
         this.subjectPanel = subjectPanel;
         this.ID = ID;
-        this.CurrentIndex = 0;
-        this.remainingTime = 20;
-        this.score = 0;
+        CurrentIndex = 0;
+        remainingTime = 600;
+        score = 0;
         this.progressBar = progressBar;
 
         updateQuizView();
@@ -60,18 +62,19 @@ public class QuizController {
 
     }
 
-    private void updateQuizView() {
+    public void updateQuizView() {
 
         if (CurrentIndex >= 0 && CurrentIndex < quizData.size()) {
-            String[] currentQuestion = quizData.get(CurrentIndex);
+            currentQuestion = quizData.get(CurrentIndex);
             questionLabel.setText("<html>" + currentQuestion[0] + "</html>");
             optionButton1.setText(currentQuestion[1]);
             optionButton2.setText(currentQuestion[2]);
             optionButton3.setText(currentQuestion[3]);
             optionButton4.setText(currentQuestion[4]);
             clearSelection();
-            // System.out.println(ID);
+
         }
+
         if (CurrentIndex == quizData.size() - 1) {
             nextButton.setText("Submit");
         } else {
@@ -92,18 +95,19 @@ public class QuizController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 checkAnswer();
-                CurrentIndex++;
-                if (CurrentIndex >= quizData.size()) {
+                if (CurrentIndex < quizData.size() - 1) {
+                    CurrentIndex++;
+                    updateQuizView();
+                } else if (CurrentIndex == quizData.size() - 1) {
                     showScore();
-                    remainingTime = 20;
+
                     subjectPanel.setVisible(true);
                     CurrentIndex = 0;
                     timer.stop();
+
                 }
-                updateQuizView();
             }
         });
-
         prevButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,12 +121,17 @@ public class QuizController {
     }
 
     private void checkAnswer() {
-        String[] currentQuestion = quizData.get(CurrentIndex);
-        String correctAnswer = currentQuestion[5];
-        String selectedAnswer = getSelectedAnswer();
-        if (correctAnswer.equals(selectedAnswer)) {
-            score++;
+        // Check if quizData is not empty
+        if (CurrentIndex >= 0 && CurrentIndex < quizData.size()) {
+            String[] currentQuestion = quizData.get(CurrentIndex);
+            String correctAnswer = currentQuestion[5];
+            String selectedAnswer = getSelectedAnswer();
+            if (correctAnswer.equals(selectedAnswer)) {
+                score++;
+            }
+        } else {
         }
+
     }
 
     private String getSelectedAnswer() {
@@ -164,6 +173,9 @@ public class QuizController {
         optionButton4.setEnabled(false);
         optionButton4.setFocusable(false);
         optionButton4.setRequestFocusEnabled(false);
+
+        quizData.clear();
+
     }
 
     private void startTimer() {
@@ -172,22 +184,26 @@ public class QuizController {
             public void actionPerformed(ActionEvent e) {
                 remainingTime--;
                 if (remainingTime >= 0) {
-                    timerLabel.setText("Time: " + remainingTime + " seconds");
-
+                    String formattedTime = formatTime(remainingTime);
+                    timerLabel.setText("Time: " + formattedTime);
                 } else {
                     checkAnswer();
                     showScore();
-
                     subjectPanel.setVisible(true);
                     CurrentIndex = 0;
                     timer.stop();
                     timerLabel.setText("Time's up!");
-
                     // Call any method or perform any action when the timer ends
                 }
             }
         });
         timer.start();
+    }
+
+    private String formatTime(int time) {
+        int minutes = time / 60;
+        int seconds = time % 60;
+        return String.format("%02d:%02d", minutes, seconds);
     }
 
     private int calculateProgress() {
