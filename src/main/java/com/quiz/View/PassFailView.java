@@ -12,7 +12,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import com.quiz.Model.Score;
+import com.quiz.Model.RecordScore;
 import com.quiz.View.Theme.ModernButton;
 
 public class PassFailView extends JFrame {
@@ -145,11 +145,11 @@ public class PassFailView extends JFrame {
     }
 
     public void recordScore() {
-        new Score().recordScore(id, Quiz_id, Percentage, Score, TotalQuestions, PassFailStatus);
+        new RecordScore().recordScore(id, Quiz_id, Percentage, Score, TotalQuestions, PassFailStatus);
     }
 
     public static void main(String[] args) {
-        new PassFailView(75.0, 15, 20, "PASS", 2, 1);
+        new PassFailView(67.67, 13, 20, "PASS", 1, 1);
 
     }
 }
