@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import com.quiz.Controller.DeleteQuestionController;
-
+import com.quiz.Controller.DeleteScoreController;
 import com.quiz.Controller.EditQuestionController;
 
 import com.quiz.View.Theme.GlassPanel;
@@ -133,6 +133,27 @@ public class AllScoreView extends GlassPanel {
         ModernButton deleteButton = new ModernButton("Delete");
         deleteButton.setBounds(950, 555, 310, 35);
         add(deleteButton);
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DeleteScoreController deleteScore = new DeleteScoreController(table, tableModel, errorLabel);
+                deleteScore.actionPerformed(e);
+
+                // int selectedRow = table.getSelectedRow();
+                // if (selectedRow != -1) {
+                // // Remove the selected row from the table model
+                // tableModel.removeRow(selectedRow);
+                // System.out.println("Row deleted: " + selectedRow);
+
+                useridField.setText("");
+                subjectidField.setText("");
+                scoreField.setText("");
+                answerField.setText("");
+                totalQuestionsField.setText("");
+                statusField.setText("");
+                // }
+            }
+        });
      
     
 
