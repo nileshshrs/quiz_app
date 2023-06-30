@@ -109,7 +109,7 @@ public class TeacherQuizPage extends JFrame {
                     ProfileView profile = new ProfileView(userData);
                     currentPanel = profile;
                     contentPanel.add(currentPanel);
-                } else if (buttonText.equals("Yours Scores")) {
+                } else if (buttonText.equals("Your Scores")) {
                     setScorePanel(id);
                 } else if (buttonText.equals("Take Quiz")) {
                     currentPanel = quiz;
