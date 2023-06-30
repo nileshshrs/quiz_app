@@ -21,7 +21,7 @@ import javax.swing.table.JTableHeader;
 import com.quiz.Controller.DeleteQuestionController;
 import com.quiz.Controller.DeleteScoreController;
 import com.quiz.Controller.EditQuestionController;
-
+import com.quiz.Controller.EditScoreController;
 import com.quiz.View.Theme.GlassPanel;
 import com.quiz.View.Theme.ModernButton;
 import com.quiz.View.Theme.ModernTextField;
@@ -130,6 +130,16 @@ public class AllScoreView extends GlassPanel {
         add(editButton);
         
 
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EditScoreController editScoreController = new EditScoreController(scoreID,
+                        useridField, subjectidField, scoreField, answerField, totalQuestionsField,
+                        statusField, errorLabel, tableModel);
+                editScoreController.actionPerformed(e);
+                }
+        });
+
         ModernButton deleteButton = new ModernButton("Delete");
         deleteButton.setBounds(950, 555, 310, 35);
         add(deleteButton);
@@ -155,7 +165,51 @@ public class AllScoreView extends GlassPanel {
             }
         });
      
-    
+    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                // Check if the selection is not adjusting (to avoid duplicate events)
+                if (!e.getValueIsAdjusting()) {
+                    // Get the selected row index
+                    int selectedRow = table.getSelectedRow();
+                    if (selectedRow != -1) {
+                        // Retrieve the values from the selected row
+                        scoreID = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
+                        String userID = table.getValueAt(selectedRow, 1).toString();
+                        String subject = table.getValueAt(selectedRow, 6).toString();
+                        String score = table.getValueAt(selectedRow, 7).toString();
+                        String correct_answer = table.getValueAt(selectedRow, 8).toString();
+                        String totalquestion = table.getValueAt(selectedRow, 9).toString();
+                        String status = table.getValueAt(selectedRow, 10).toString();
+
+                        // Do something with the retrieved values
+
+                        useridField.setText(userID);
+                        switch (subject.toLowerCase()) {
+                            case "java":
+                                subjectidField.setText("1");
+                                break;
+                            case "python":
+                                subjectidField.setText("2");
+                                break;
+                            case "javascript":
+                                subjectidField.setText("3");
+                                break;
+                            case "html & css":
+                                subjectidField.setText("4");
+                                break;
+                            default:
+                                subjectidField.setText("");
+                                break;
+                        }
+                        scoreField.setText(score);
+                        answerField.setText(correct_answer);
+                        totalQuestionsField.setText(totalquestion);
+                        statusField.setText(status);
+                    }
+                }
+                }
+        });
 
         add(scrollPane);
 
