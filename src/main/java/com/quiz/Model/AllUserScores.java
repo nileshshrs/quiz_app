@@ -37,6 +37,7 @@ public class AllUserScores {
 
             while (rs.next()) {
                 String quizName = rs.getString("quiz_name");
+                int userID= rs.getInt("user_id");
                 String firstName = rs.getString("firstname");
                 String lastName = rs.getString("lastname");
                 String username = rs.getString("username");
@@ -49,6 +50,7 @@ public class AllUserScores {
 
                 String[] rowData = {
                         String.valueOf(scoreId),
+                        String.valueOf(userID),
                         firstName,
                         lastName,
                         username,
@@ -60,18 +62,9 @@ public class AllUserScores {
                         passFailStatus
                 };
 
-                System.out.println(Arrays.toString(rowData));
+                // System.out.println(Arrays.toString(rowData));
                 allUserScore.add(rowData);
 
-                // System.out.println("Quiz Name: " + quizName);
-                // System.out.println("User Name: " + firstName + " " + lastName);
-                // System.out.println("Username: " + username);
-                // System.out.println("Score ID: " + scoreId);
-                // System.out.println("Score: " + score);
-                // System.out.println("Total Correct Answers: " + totalCorrectAnswers);
-                // System.out.println("Total Questions: " + totalQuestions);
-                // System.out.println("Pass/Fail Status: " + passFailStatus);
-                // System.out.println();
             }
         } catch (ClassNotFoundException e) {
             System.out.println("MySQL JDBC driver not found");

@@ -12,8 +12,6 @@ import javax.swing.table.DefaultTableModel;
 
 import com.quiz.Model.DeleteScore;
 
-
-
 public class DeleteScoreController implements ActionListener {
     private JTable Table;
     private DefaultTableModel TableModel;

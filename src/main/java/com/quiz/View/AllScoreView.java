@@ -128,8 +128,6 @@ public class AllScoreView extends GlassPanel {
         ModernButton editButton = new ModernButton("Edit");
         editButton.setBounds(950, 500, 310, 35);
         add(editButton);
-        
-
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -137,7 +135,7 @@ public class AllScoreView extends GlassPanel {
                         useridField, subjectidField, scoreField, answerField, totalQuestionsField,
                         statusField, errorLabel, tableModel);
                 editScoreController.actionPerformed(e);
-                }
+            }
         });
 
         ModernButton deleteButton = new ModernButton("Delete");
@@ -164,8 +162,8 @@ public class AllScoreView extends GlassPanel {
                 // }
             }
         });
-     
-    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 // Check if the selection is not adjusting (to avoid duplicate events)
@@ -208,7 +206,7 @@ public class AllScoreView extends GlassPanel {
                         statusField.setText(status);
                     }
                 }
-                }
+            }
         });
 
         add(scrollPane);
