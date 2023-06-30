@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.quiz.Model.DeleteScore;
+
 
 
 public class DeleteScoreController implements ActionListener {
@@ -34,7 +36,7 @@ public class DeleteScoreController implements ActionListener {
             int scoreID = Integer.parseInt(Table.getValueAt(selectedRow, 0).toString());
   
 
-            //new DeleteScore(scoreID);
+            new DeleteScore(scoreID);
 
             ErrorLabel.setText("Deleted Sucessfully.");
             ErrorLabel.setVisible(true);
