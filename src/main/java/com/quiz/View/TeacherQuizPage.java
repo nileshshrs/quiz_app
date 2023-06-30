@@ -22,7 +22,7 @@ import javax.swing.WindowConstants;
 
 import com.quiz.Model.Profile;
 import com.quiz.Model.QuizQuestionModel;
-
+import com.quiz.Model.UserScore;
 import com.quiz.View.Theme.Sidebar;
 
 public class TeacherQuizPage extends JFrame {
@@ -32,11 +32,13 @@ public class TeacherQuizPage extends JFrame {
     private String USERNAME;
     private int id;
     private Profile profileData;
+    private UserScore userscore;
 
     public TeacherQuizPage(String username, int ID) {
         this.id = ID;
         this.USERNAME = username;
         this.profileData = new Profile(USERNAME);
+        this.userscore = new UserScore(ID);
         setTitle("Quiz Application");
         setSize(1600, 1000);
         setLocationRelativeTo(null);
@@ -107,6 +109,8 @@ public class TeacherQuizPage extends JFrame {
                     ProfileView profile = new ProfileView(userData);
                     currentPanel = profile;
                     contentPanel.add(currentPanel);
+                } else if (buttonText.equals("Yours Scores")) {
+                    setScorePanel(id);
                 } else if (buttonText.equals("Take Quiz")) {
                     currentPanel = quiz;
                     contentPanel.add(currentPanel);
@@ -134,6 +138,14 @@ public class TeacherQuizPage extends JFrame {
         currentPanel.setVisible(true);
 
         setVisible(true);
+    }
+
+    private void setScorePanel(int id) {
+        this.userscore = new UserScore(id);
+        ArrayList<String[]> scoreData = userscore.getUserScore();
+
+        currentPanel = new ScoreView(scoreData);
+        contentPanel.add(currentPanel);
     }
 
     // logout
