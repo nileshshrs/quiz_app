@@ -116,7 +116,15 @@ public class TeacherQuizPage extends JFrame {
                 } else if (buttonText.equals("Take Quiz")) {
                     currentPanel = quiz;
                     contentPanel.add(currentPanel);
-                } else if (buttonText.equals("Log Out")) {
+                }
+                else if (buttonText.equals("All Scores")) {
+                    setAllScorePanel();
+
+ 
+
+               }
+
+                 else if (buttonText.equals("Log Out")) {
                     disposeWindow();
                     return;
                 } else {
