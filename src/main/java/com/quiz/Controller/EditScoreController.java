@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import com.quiz.Model.EditQuestion;
-// import com.quiz.Model.EditScore;
+import com.quiz.Model.EditScore;
 
 public class EditScoreController implements ActionListener {
 
@@ -99,7 +99,7 @@ public class EditScoreController implements ActionListener {
                     }
                 }, 3000);
             } else {
-                // new EditScore(scoreID, userID, subjectid, score, Answers, totalQuestions, status);
+                new EditScore(scoreID, userID, subjectid, score, Answers, totalQuestions, status);
                 for (int i = 0; i < tableModel.getRowCount(); i++) {
                     String Value = (String) tableModel.getValueAt(i, 0); // Assuming the
                     if (Value.equals(String.valueOf(scoreID))) {
