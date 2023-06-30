@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import com.quiz.Model.AllUserScores;
 import com.quiz.Model.Profile;
 import com.quiz.Model.QuizQuestionModel;
 import com.quiz.Model.UserScore;
@@ -33,6 +34,7 @@ public class TeacherQuizPage extends JFrame {
     private int id;
     private Profile profileData;
     private UserScore userscore;
+    private AllUserScores alluserscores;
 
     public TeacherQuizPage(String username, int ID) {
         this.id = ID;
@@ -146,6 +148,18 @@ public class TeacherQuizPage extends JFrame {
 
         currentPanel = new ScoreView(scoreData);
         contentPanel.add(currentPanel);
+    }
+    private void setAllScorePanel() {
+        this.alluserscores = new AllUserScores();
+        ArrayList<String[]> scoreData = alluserscores.getUserScore();
+
+ 
+
+        currentPanel = new AllScoreView(scoreData);
+        contentPanel.add(currentPanel);
+
+ 
+
     }
 
     // logout
