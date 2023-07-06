@@ -36,7 +36,7 @@ public class QuizQuestionPanel extends GlassPanel {
         setBounds(250, 170, 1300, 680);
 
         JLabel titleLabel = new JLabel("Quiz Questions");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setBounds(550, 20, 200, 30);
         add(titleLabel);

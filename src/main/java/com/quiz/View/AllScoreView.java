@@ -38,11 +38,17 @@ public class AllScoreView extends GlassPanel {
         setBounds(250, 170, 1300, 680);
 
         JLabel titleLabel = new JLabel("Quiz Scores");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setBounds(550, 20, 200, 30);
         add(titleLabel);
 
+        JLabel formTitleLabel = new JLabel("Edit Score");
+        formTitleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        formTitleLabel.setForeground(Color.WHITE);
+        formTitleLabel.setBounds(950, 70, 300, 20);
+        formTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(formTitleLabel);
         // Create a DefaultTableModel to hold the data for the JTable
         final DefaultTableModel tableModel = new DefaultTableModel();
         final JTable table = new JTable(tableModel);
@@ -69,8 +75,8 @@ public class AllScoreView extends GlassPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         int tableHeight = getHeight() - 150; // Subtract 100 for padding
         int scrollPaneHeight = tableHeight;
-        int scrollPaneWidth = 900;
-        int scrollPaneX = 5; // Set the X position to 50 for left alignment
+        int scrollPaneWidth = 910;
+        int scrollPaneX = 20; // Set the X position to 50 for left alignment
         int scrollPaneY = (getHeight() - scrollPaneHeight) / 2; // Calculate the Y position
         scrollPane.setBounds(scrollPaneX, scrollPaneY, scrollPaneWidth, scrollPaneHeight); // Set the bounds dynamically
         scrollPane.getViewport().setBackground(new Color(75, 159, 150));

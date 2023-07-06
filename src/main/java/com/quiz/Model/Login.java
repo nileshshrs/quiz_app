@@ -30,7 +30,7 @@ public class Login {
             String role = data[6];
             if (role.equals("student")) {
                 // System.out.println(username);
-                new StudentQuizPage();
+                new StudentQuizPage(username, ID);
                 // new TeacherQuizPage(username);
             } else if (role.equals("teacher")) {
                 // System.out.println(username);

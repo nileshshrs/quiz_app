@@ -16,17 +16,14 @@ public class QuizView extends GlassPanel {
     private JPanel subjectPanel;
     private ArrayList<JButton> quizButtons;
 
-    private JLabel questionLabel, timerLabel, subjectTitleLabel, progressLabel; // Added timer label
+    private JLabel questionLabel, timerLabel, subjectTitleLabel, progressLabel, instructionsLabel; // Added timer label
     private JButton nextButton, prevButton;
     private JRadioButton optionButton1, optionButton2, optionButton3, optionButton4;
     private ButtonGroup buttonGroup;
     private int ID;
     private JProgressBar progressBar;
     private Quiz quiz;
-    private ArrayList<String[]> javaQuizData;
-    private ArrayList<String[]> pythonQuizData;
-    private ArrayList<String[]> javascriptQuizData;
-    private ArrayList<String[]> htmlCssQuizData;
+
 
     public QuizView(int ID) {
 
@@ -94,6 +91,30 @@ public class QuizView extends GlassPanel {
         quizButtons.add(createQuizButton("JavaScript", 700, 200));
         quizButtons.add(createQuizButton("HTML & CSS", 1000, 200));
 
+        instructionsLabel = new JLabel("<html><body><div style='text-align: left;'>"
+                + "<h2 style='margin-bottom: 10px; margin-top: 0; padding-left:15'>Instructions:</h2>"
+                + "<ul style='list-style-type: disc; margin-left: 20px; padding-left: 0;'>"
+                + "<li style='margin-bottom: 10px;padding-left: 0;'>Read each question carefully</li>"
+                + "<li style='margin-bottom: 10px;padding-left: 0;'>Select the correct answer</li>"
+                + "<li style='margin-bottom: 10px;padding-left: 0;'>Click 'Next' to proceed to the next question</li>"
+                + "<li style='margin-bottom: 10px;padding-left: 0;'>Click 'Previous' to go back to the previous question</li>"
+                + "</ul>"
+                + "</div></body></html>");
+
+        instructionsLabel.setBounds(450, 300, 900, 250);
+        instructionsLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        instructionsLabel.setForeground(Color.WHITE);
+        subjectPanel.add(instructionsLabel);
+
+        JLabel goodLuckLabel = new JLabel("<html><body><div style='text-align: center;'>"
+                + "<p style='margin-bottom: 0;'>Remember, your knowledge and skills will shine through. Good luck!</p>"
+                + "</div></body></html>");
+
+        goodLuckLabel.setBounds(400, 500, 500, 180);
+        goodLuckLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        goodLuckLabel.setForeground(Color.WHITE);
+        subjectPanel.add(goodLuckLabel);
+
         // titleLabel = new JLabel("");
         // titleLabel.setBounds(750, 30, 300, 40);
         // add(titleLabel);
@@ -160,25 +181,25 @@ public class QuizView extends GlassPanel {
                 if (clickedButton.getText().equals("Java")) {
                     QuizController controller = new QuizController(nextButton, prevButton, questionLabel,
                             getJavaQuizData(), buttonGroup, optionButton1,
-                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar,1);
+                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar, 1);
                     ;
                     controller.updateQuizView();
                 } else if (clickedButton.getText().equals("Python")) {
                     QuizController controller = new QuizController(nextButton, prevButton, questionLabel,
                             getPythonQuizData(), buttonGroup, optionButton1,
-                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar,2);
+                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar, 2);
                     ;
                     controller.updateQuizView();
                 } else if (clickedButton.getText().equals("JavaScript")) {
                     QuizController controller = new QuizController(nextButton, prevButton, questionLabel,
                             getJavascriptQuizData(), buttonGroup, optionButton1,
-                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar,3);
+                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar, 3);
                     ;
                     controller.updateQuizView();
                 } else if (clickedButton.getText().equals("HTML & CSS")) {
                     QuizController controller = new QuizController(nextButton, prevButton, questionLabel,
                             getHtmlCssQuizData(), buttonGroup, optionButton1,
-                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar,4);
+                            optionButton2, optionButton3, optionButton4, timerLabel, subjectPanel, ID, progressBar, 4);
                     ;
                     controller.updateQuizView();
                 }

@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import com.quiz.Controller.ProfileInformationController;
+import com.quiz.Model.EditEmail;
 import com.quiz.View.Theme.GlassPanel;
 import com.quiz.View.Theme.ModernButton;
 import com.quiz.View.Theme.ModernTextField;
@@ -27,6 +28,7 @@ public class ProfileView extends GlassPanel {
     private ArrayList<String[]> userData;
     private JPanel userCard;
     private int ID;
+    private String username;
 
     public ProfileView(ArrayList<String[]> userdata) {
         this.userData = userdata;
@@ -48,6 +50,13 @@ public class ProfileView extends GlassPanel {
         headingLabel.setFont(new Font("Arial", Font.BOLD, 24));
         headingLabel.setHorizontalAlignment(JLabel.CENTER);
         userCard.add(headingLabel);
+
+        JLabel titleLabel = new JLabel("Profile Information");
+        titleLabel.setBounds(300, 50, 700, 30); // Adjust the position and size as needed
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        add(titleLabel);
 
         // Create labels for the fields
         JLabel idLabel = new JLabel("ID:");
@@ -105,10 +114,23 @@ public class ProfileView extends GlassPanel {
         emailLabel.setFont(new Font("Arial", Font.BOLD, 14));
         userCard.add(emailLabel);
 
-        JLabel emailText = new JLabel();
-        emailText.setBounds(140, 170, 200, 30);
+        final JTextField emailText = new ModernTextField("",
+                color, color,
+                color, color);
+        emailText.setBounds(140, 170, 400, 30);
         emailText.setForeground(Color.WHITE);
         emailText.setFont(new Font("Arial", Font.PLAIN, 14));
+        emailText.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        emailText.setEnabled(false);
+        emailText.setDisabledTextColor(Color.WHITE);
+
+        final JButton saveButton = new ModernButton("save");
+        saveButton.setBounds(560, 175, 100, 25);
+        saveButton.setVisible(false);
+
+        userCard.add(saveButton);
+
+        // Disable the text field
         userCard.add(emailText);
 
         final JLabel ageLabel = new JLabel("Age:");
@@ -161,6 +183,7 @@ public class ProfileView extends GlassPanel {
 
         for (String data[] : userData) {
             this.ID = Integer.parseInt(data[0]);
+            this.username = data[3];
             idText.setText(data[0]);
             firstNameText.setText(WordUtils.capitalize(data[1]));
             lastNameText.setText(WordUtils.capitalize(data[2]));
@@ -248,14 +271,49 @@ public class ProfileView extends GlassPanel {
         ModernButton changePasswordButton = new ModernButton("Edit Password");
         changePasswordButton.setBounds(850, 485, 400, 40);
         add(changePasswordButton);
+        changePasswordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DeleteAccountView(ID, username);
+            }
+        });
 
         ModernButton deleteAccountButton = new ModernButton("Delete Account ?");
         deleteAccountButton.setBounds(425, 575, 250, 40);
         add(deleteAccountButton);
+        deleteAccountButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DeleteAccountView(ID, username);
+            }
+        });
 
         ModernButton changeEmailButton = new ModernButton("Edit Email");
         changeEmailButton.setBounds(125, 575, 250, 40);
         add(changeEmailButton);
 
+        changeEmailButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                emailText.setEnabled(true);
+                emailText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
+                saveButton.setVisible(true);
+            }
+        });
+
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String email = emailText.getText();
+                if (email.isEmpty()) {
+                    return;
+                } else {
+                    new EditEmail(email, ID);
+                    saveButton.setVisible(false);
+                    emailText.setEnabled(false);
+                    emailText.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.WHITE));
+                }
+            }
+        });
     }
 }

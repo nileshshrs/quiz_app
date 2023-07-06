@@ -118,6 +118,7 @@ public class Registration {
             statement.setString(4, email);
             statement.setString(5, password);
             statement.setString(6, role);
+            
             statement.executeUpdate();
 
             System.out.println("Inserted data into the database!");

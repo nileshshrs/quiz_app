@@ -18,7 +18,9 @@ import com.quiz.View.Theme.ModernButton;
 public class PassFailView extends JFrame {
 
     private JPanel contentPanel;
-    private JLabel correctAnswerLabel, statusLabel, titleLabel;
+    JLabel correctAnswerLabel;
+    JLabel statusLabel;
+    private JLabel titleLabel;
     private JButton closeButton;
     private int id, Quiz_id, TotalQuestions, Score;
     private double Percentage;

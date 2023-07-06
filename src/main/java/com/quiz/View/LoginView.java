@@ -32,7 +32,7 @@ import com.quiz.View.Theme.TransparentButton;
 
 public class LoginView extends JFrame {
 
-    private JPanel panel;
+    JPanel panel;
 
     public LoginView() {
         setTitle("Login");
@@ -109,7 +109,7 @@ public class LoginView extends JFrame {
         forgotPasswordButton.setBackground(new Color(64, 144, 128, 0));
         forgotPasswordButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose(); // close the current window
+                new ForgotPasswordView(); // close the current window
                 // open the login window
             }
         });
@@ -146,4 +146,6 @@ public class LoginView extends JFrame {
     public static void main(String[] args) {
         new LoginView();
     }
+
+
 }

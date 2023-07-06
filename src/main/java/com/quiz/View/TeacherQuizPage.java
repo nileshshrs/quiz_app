@@ -8,9 +8,16 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Timer;
+import java.util.TimerTask;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -18,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.quiz.Model.AllUserScores;
@@ -35,6 +43,9 @@ public class TeacherQuizPage extends JFrame {
     private Profile profileData;
     private UserScore userscore;
     private AllUserScores alluserscores;
+    private JLabel timeLabel; // Declare the time label as a class member
+    private Timer timer; // Timer for updating the time label
+    private JLabel dateLabel;
 
     public TeacherQuizPage(String username, int ID) {
         this.id = ID;
@@ -56,6 +67,29 @@ public class TeacherQuizPage extends JFrame {
         applicationLabel.setFont(new Font("Arial", Font.BOLD, 37));
         applicationLabel.setForeground(Color.WHITE);
         contentPanel.add(applicationLabel);
+
+        JLabel welcomeLabel = new JLabel("Welcome, " + USERNAME + "!");
+        welcomeLabel.setBounds(50, 0, 500, 50);
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        welcomeLabel.setForeground(Color.WHITE);
+        contentPanel.add(welcomeLabel);
+
+        timeLabel = new JLabel();
+        timeLabel.setBounds(1350, 0, 200, 50);
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        timeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        timeLabel.setForeground(Color.WHITE);
+        contentPanel.add(timeLabel);
+
+        dateLabel = new JLabel();
+        dateLabel.setBounds(1350, 30, 200, 50);
+        dateLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        dateLabel.setForeground(Color.WHITE);
+        contentPanel.add(dateLabel);
+
+        // Start the timer to update the time label
+        startTimer();
 
         ImageIcon icon = null;
         try {
@@ -116,15 +150,12 @@ public class TeacherQuizPage extends JFrame {
                 } else if (buttonText.equals("Take Quiz")) {
                     currentPanel = quiz;
                     contentPanel.add(currentPanel);
-                }
-                else if (buttonText.equals("All Scores")) {
+                } else if (buttonText.equals("All Scores")) {
                     setAllScorePanel();
 
- 
+                }
 
-               }
-
-                 else if (buttonText.equals("Log Out")) {
+                else if (buttonText.equals("Log Out")) {
                     disposeWindow();
                     return;
                 } else {
@@ -157,16 +188,13 @@ public class TeacherQuizPage extends JFrame {
         currentPanel = new ScoreView(scoreData);
         contentPanel.add(currentPanel);
     }
+
     private void setAllScorePanel() {
         this.alluserscores = new AllUserScores();
         ArrayList<String[]> scoreData = alluserscores.getUserScore();
 
- 
-
         currentPanel = new AllScoreView(scoreData);
         contentPanel.add(currentPanel);
-
- 
 
     }
 
@@ -174,6 +202,27 @@ public class TeacherQuizPage extends JFrame {
     private void disposeWindow() {
         new LoginView();
         this.dispose();
+    }
+
+    private void startTimer() {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                // Get the current time and date
+                Date currentTime = new Date();
+                Date currentDate = new Date();
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
+                String timeString = timeFormat.format(currentTime);
+                String dateString = dateFormat.format(currentDate);
+
+                timeLabel.setText(timeString);
+                dateLabel.setText(dateString);
+            }
+        };
+
+        timer = new Timer();
+        timer.scheduleAtFixedRate(task, 0, 1000);
     }
 
     public static void main(String[] args) {

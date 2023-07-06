@@ -19,7 +19,6 @@ import javax.swing.SwingUtilities;
 import com.quiz.Model.Registration;
 import com.quiz.View.LoginView;
 
-
 public class RegistrationController implements ActionListener {
     private JTextField firstname;
     private JTextField lastname;
@@ -68,14 +67,14 @@ public class RegistrationController implements ActionListener {
             statement.setString(1, userName);
             ResultSet rs = statement.executeQuery();
 
-            //creating a timer to remove errorlabel visibility
+            // creating a timer to remove errorlabel visibility
             final Timer timer = new Timer();
             if (rs.next()) {
                 // Username already exists
                 errorLabel.setText("Username already exists");
                 errorLabel.setVisible(true);
 
-                //timer function
+                // timer function
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -186,71 +185,38 @@ public class RegistrationController implements ActionListener {
 
         } else {
 
-            try {
-                // Create a connection to the database
-                connection = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/quiz_application?user=root&password=SiberiaV2.0");
+            // Registration successful
+            new Registration(firstName, lastName, userName, email, password, confirmPassword, role);
 
-                statement = connection.prepareStatement(
-                        "INSERT INTO users (firstname, lastname, username, email, password, role) VALUES (?, ?, ?, ?, ?, ?)");
-                statement.setString(1, firstName);
-                statement.setString(2, lastName);
-                statement.setString(3, userName);
-                statement.setString(4, email);
-                statement.setString(5, password);
-                statement.setString(6, role);
-                int rowsInserted = statement.executeUpdate();
+            // Reset the form fields
+            firstname.setText("");
+            lastname.setText("");
+            username.setText("");
+            this.email.setText("");
+            this.password.setText("");
+            this.confirmPassword.setText("");
+            roleComboBox.setSelectedIndex(0);
 
-                if (rowsInserted > 0) {
-                    // Registration successful
-                    new Registration(firstName, lastName, userName, email, password, confirmPassword, role);
+            // Show success message
+            errorLabel.setText("Registration successful");
+            errorLabel.setVisible(true);
+            errorLabel.setBackground(new Color(230, 255, 237)); // light green color
+            errorLabel.setForeground(new Color(0, 100, 0));
 
-                    // Reset the form fields
-                    firstname.setText("");
-                    lastname.setText("");
-                    username.setText("");
-                    this.email.setText("");
-                    this.password.setText("");
-                    this.confirmPassword.setText("");
-                    roleComboBox.setSelectedIndex(0);
-
-                    // Show success message
-                    errorLabel.setText("Registration successful");
-                    errorLabel.setVisible(true);
-                    errorLabel.setBackground(new Color(230, 255, 237)); // light green color
-                    errorLabel.setForeground(new Color(0, 100, 0));
-
-                    // Close the registration view after a delay
-                    final Timer timer = new Timer();
-                    final Component sourceComponent = (Component) e.getSource();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            errorLabel.setVisible(false);
-                            timer.cancel();
-                            // Close the registration view
-                            new LoginView();
-                            Window window = SwingUtilities.getWindowAncestor(sourceComponent);
-                            window.dispose();
-                        }
-                    }, 5000);
+            // Close the registration view after a delay
+            final Timer timer = new Timer();
+            final Component sourceComponent = (Component) e.getSource();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    errorLabel.setVisible(false);
+                    timer.cancel();
+                    // Close the registration view
+                    new LoginView();
+                    Window window = SwingUtilities.getWindowAncestor(sourceComponent);
+                    window.dispose();
                 }
-            } catch (SQLException exception) {
-                System.out.println("Failed to connect to the database");
-                exception.printStackTrace();
-            } finally {
-                try {
-                    if (statement != null) {
-                        statement.close();
-                    }
-                    if (connection != null) {
-                        connection.close();
-                    }
-                } catch (SQLException exception) {
-                    System.out.println("Failed to close the connection");
-                    exception.printStackTrace();
-                }
-            }
+            }, 5000);
 
         }
     }
