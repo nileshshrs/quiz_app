@@ -274,7 +274,7 @@ public class ProfileView extends GlassPanel {
         changePasswordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new DeleteAccountView(ID, username);
+                new EditPasswordView(ID);
             }
         });
 

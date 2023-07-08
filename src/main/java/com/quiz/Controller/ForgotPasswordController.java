@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.plaf.TreeUI;
 
 import com.quiz.Model.ForgotPassword;
 import com.quiz.View.ForgotPasswordView;
@@ -86,6 +87,7 @@ public class ForgotPasswordController {
                     errorLabel.setText("invalid username");
                     errorLabel.setForeground(new Color(255, 0, 0));
                     errorLabel.setBackground(Color.PINK);
+                    errorLabel.setVisible(true);
                     timer.schedule(new TimerTask() {
 
                         @Override
