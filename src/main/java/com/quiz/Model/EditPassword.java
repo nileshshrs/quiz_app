@@ -29,6 +29,8 @@ public class EditPassword {
         setId(id);
         setPassword(password);
 
+        updatePassword(getId(), getPassword());
+
     }
 
     public void updatePassword(int id, String password) {
@@ -39,12 +41,16 @@ public class EditPassword {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
+            System.out.println(password);
+            System.out.println(id);
             connection = DriverManager
                     .getConnection("jdbc:mysql://localhost:3306/quiz_application?user=root&password=SiberiaV2.0");
             String sql = "UPDATE users SET password = ? WHERE id = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, password);
             statement.setInt(2, id);
+
+            statement.executeUpdate();
 
             int rowsAffected = statement.executeUpdate();
 
