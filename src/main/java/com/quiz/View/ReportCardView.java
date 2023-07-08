@@ -36,7 +36,9 @@ public class ReportCardView extends JFrame {
         contentPanel.add(titleLabel, BorderLayout.NORTH);
 
         String[] columnNames = { "Information", "Grade" };
+        System.out.println(scoreData[0]);
         Object[][] data = {
+            
                 { "Quiz ID", scoreData[0] },
                 { "First Name", scoreData[1] },
                 { "Last Name", scoreData[2] },

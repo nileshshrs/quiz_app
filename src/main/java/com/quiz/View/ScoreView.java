@@ -61,6 +61,7 @@ public class ScoreView extends GlassPanel {
         // Add the question data to the table model
         for (String[] rowData : scoreData) {
             tableModel.addRow(rowData);
+           
         }
         JScrollPane scrollPane = new JScrollPane(table);
         int tableHeight = getHeight() - 150; // Subtract 100 for padding
@@ -85,16 +86,18 @@ public class ScoreView extends GlassPanel {
                     if (selectedRow != -1) {
                         // Retrieve the values from the selected row
 
-                        String quiz_id = table.getValueAt(selectedRow, 1).toString();
-                        String firstname = table.getValueAt(selectedRow, 2).toString();
-                        String lastname = table.getValueAt(selectedRow, 3).toString();
-                        String username = table.getValueAt(selectedRow, 4).toString();
-                        String score = table.getValueAt(selectedRow, 5).toString();
-                        String correctAnswer = table.getValueAt(selectedRow, 6).toString();
+                        String quiz_id = table.getValueAt(selectedRow, 0).toString();
+                        String firstname = table.getValueAt(selectedRow, 1).toString();
+                        String lastname = table.getValueAt(selectedRow, 2).toString();
+                        String username = table.getValueAt(selectedRow, 3).toString();
+                        String score = table.getValueAt(selectedRow, 4).toString();
+                        String correctAnswer = table.getValueAt(selectedRow, 5).toString();
                         String totalquestions = table.getValueAt(selectedRow, 6).toString();
-                        String status = table.getValueAt(selectedRow, 6).toString();
+                        String status = table.getValueAt(selectedRow, 7).toString();
 
-                        Result = new String[] { quiz_id, firstname, lastname, username, score, correctAnswer,
+                        System.out.println(quiz_id);
+
+                        Result = new String[] {quiz_id, firstname, lastname, username, score, correctAnswer,
                                 totalquestions, status };
                         // Do something with the retrieved values
 
