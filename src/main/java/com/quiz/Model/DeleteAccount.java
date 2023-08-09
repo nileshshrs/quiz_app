@@ -17,7 +17,7 @@ public class DeleteAccount {
     }
 
     public DeleteAccount(int ID) {
-        setID(ID);
+        setID(19);
 
         deleteAccount(getID());
     }

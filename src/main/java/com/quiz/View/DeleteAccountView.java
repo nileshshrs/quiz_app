@@ -86,6 +86,7 @@ public class DeleteAccountView extends JFrame {
         Window[] windows = Frame.getWindows();
         for (Window window : windows) {
             if (window instanceof JFrame && window != this && !(window instanceof DeleteAccountView)) {
+                new DeleteAccount(ID);
                 window.dispose();
             }
         }
